@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "978445495323",
+    "project_id": "ecommerce-importing-app",
+    "storage_bucket": "ecommerce-importing-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978445495323:android:fa2534cb76b7d3f28f5cbe",
+        "android_client_info": {
+          "package_name": "com.example.import_website"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhFDDEauMNM7YgKPuaU6zsk5_jVlvz1Yc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978445495323:android:265de7e7e10533668f5cbe",
+        "android_client_info": {
+          "package_name": "com.example.import_website_proje"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhFDDEauMNM7YgKPuaU6zsk5_jVlvz1Yc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978445495323:android:f1e68c93111780438f5cbe",
+        "android_client_info": {
+          "package_name": "com.importwebsiteproject.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhFDDEauMNM7YgKPuaU6zsk5_jVlvz1Yc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
