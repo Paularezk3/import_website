@@ -1,26 +1,27 @@
 import 'package:get/get.dart';
-import 'package:import_website/core/utils/app_constants.dart';
-import 'package:import_website/modules/home/controllers/main_home_controller.dart';
+import 'package:import_website/core/services/data_repository.dart';
+import 'package:import_website/core/services/get_data.dart';
+import 'package:import_website/core/services/prefs_helper.dart';
+import 'package:import_website/modules/contact_us/controllers/contact_us_controller.dart';
+import 'package:import_website/modules/home/controller/home_controller.dart';
+import 'package:import_website/modules/main/controllers/main_home_controller.dart';
 
-import '../services/get_data.dart';
-import '../services/network_repository.dart';
+import '../services/api_service.dart';
 import '../services/shared_preference_handler.dart';
 
 class InitialBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<MainHomeController>(() => MainHomeController());
-    // Add more dependencies if needed
-    // Initialize NetworkRepository and SharedPreferencesHandler
-    Get.put<NetworkRepository>(
-      NetworkRepository(baseUrl: 'https://${AppConstants.apiUrl}'),
-    );
-    Get.put<SharedPreferencesHandler>(SharedPreferencesHandler());
+    DataRepository dataRepository = DataRepository();
+    PrefsHelper prefs = PrefsHelper();
 
-    // Initialize GetData and inject NetworkRepository and SharedPreferencesHandler
-    Get.put<GetData>(GetData(
-          networkRepository: Get.find<NetworkRepository>(),
-          sharedPreferencesHandler: Get.find<SharedPreferencesHandler>(),
-        ));
+    Get.put<MainHomeController>(MainHomeController());
+    Get.put<HomeController>(HomeController());
+    Get.put<ContactUsController>(ContactUsController());
+    // Add more dependencies if needed
+    Get.put<SharedPreferencesHandler>(SharedPreferencesHandler());
+    Get.put(GetData(dataRepository, prefs));
+
+    Get.lazyPut<ApiService>(() => ApiService());
   }
 }

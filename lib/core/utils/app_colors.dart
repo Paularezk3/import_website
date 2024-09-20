@@ -12,11 +12,20 @@ class AppColors {
   static const Color differentColor3 = Color.fromARGB(255, 255, 133, 146);
   static const Color differentColor4 = Color.fromARGB(255, 255, 199, 115);
 
-
   static const Color blackAndWhiteDarkMode = Color.fromARGB(255, 0, 0, 0);
+  static Color backgroundSecondaryColorDarkMode = Colors.grey[850]!;
+  static const Color shimmerBaseColorDarkMode =
+      Color.fromARGB(255, 19, 19, 19);
+  static const Color shimmerHighlightColorDarkMode =
+      Color.fromARGB(255, 56, 56, 56);
 
   static const Color blackAndWhiteLightMode =
       Color.fromARGB(255, 255, 255, 255);
+  static Color backgroundSecondaryColorLightMode = Colors.blue[50]!;
+  static const Color shimmerBaseColorLightMode =
+      Color.fromARGB(255, 224, 224, 224);
+  static const Color shimmerHighlightColorLightMode =
+      Color.fromARGB(255, 245, 245, 245);
 
   static Color blackAndWhiteColor(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark
@@ -26,6 +35,18 @@ class AppColors {
       Theme.of(context).brightness == Brightness.dark
           ? blackAndWhiteLightMode
           : blackAndWhiteDarkMode;
+  static Color backgroundSecondaryColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+          ? backgroundSecondaryColorDarkMode
+          : backgroundSecondaryColorLightMode;
+  static Color shimmerBaseColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+          ? shimmerBaseColorDarkMode
+          : shimmerBaseColorLightMode;
+  static Color shimmerHighlightColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+          ? shimmerHighlightColorDarkMode
+          : shimmerHighlightColorLightMode;
 
   static List<BoxShadow> iconsShadowsDarkMode = const [
     BoxShadow(

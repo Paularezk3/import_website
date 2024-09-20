@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--
+  <head>
+    <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
 
@@ -14,27 +14,54 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+    <base href="$FLUTTER_BASE_HREF" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="A new Flutter project." />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="import_website">
-  <meta name="google-signin-client_id" content="978445495323-kg25fj4ni3t7taonrkoqile0n0gkk6fm.apps.googleusercontent.com">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="import_website" />
+    <meta
+      name="google-signin-client_id"
+      content="978445495323-kg25fj4ni3t7taonrkoqile0n0gkk6fm.apps.googleusercontent.com"
+    />
 
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>import_website</title>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <script src="flutter_bootstrap.js" async></script>
-</body>
+    <title>import_website</title>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x/firebase-storage.js"></script> -->
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9cX2I8efWiAW41bXgOrx47ZgyjJ4JGgo"></script>
+
+    <script>
+      // Your Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyB4PM_VxduHQOWRgQrvsEpqdiDJC9xwpQQ",
+        authDomain: "ecommerce-importing-app.firebaseapp.com",
+        projectId: "ecommerce-importing-app",
+        storageBucket: "ecommerce-importing-app.appspot.com",
+        messagingSenderId: "978445495323",
+        appId: "1:978445495323:web:e24b91fa236a69648f5cbe",
+        measurementId: "G-DWB2HHE04Z"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <!-- <link rel="manifest" href="manifest.json"> -->
+  </head>
+  <body></body>
+    <script src="main.dart.js" type="application/javascript"></script>
+    <!-- <script src="flutter_bootstrap.js" async></script> -->
+  </body>
 </html>

@@ -1,19 +1,18 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:import_website/core/bindings/initial_bindings.dart';
-import 'package:import_website/core/utils/app_colors.dart';
 import 'package:import_website/core/utils/app_constants.dart';
 import 'package:import_website/core/utils/app_theme.dart';
 import 'package:import_website/routes/app_pages.dart';
 import 'package:import_website/routes/app_routes.dart';
-import 'firebase_options.dart';
+// import 'firebase_options.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   runApp(const MyApp());
 }
@@ -25,8 +24,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: AppConstants.companyShortName,
-      theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.system,
+      theme: AppTheme.lightTheme(context), // Light theme
+      darkTheme: AppTheme.darkTheme(context), // Dark theme
+      // themeMode: ThemeMode.light, // Switch based on system preference
+      themeMode: ThemeMode.system, // Switch based on system preference
       initialBinding: InitialBindings(),
       initialRoute: AppRoutes.home,
       getPages: AppPages.routes,

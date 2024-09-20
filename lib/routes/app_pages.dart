@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:import_website/modules/home/controllers/main_home_controller.dart';
-import 'package:import_website/modules/home/views/main_home_view.dart';
+import 'package:import_website/modules/main/controllers/main_home_controller.dart';
+import 'package:import_website/modules/main/main_home_view.dart';
 
 import 'app_routes.dart';
 

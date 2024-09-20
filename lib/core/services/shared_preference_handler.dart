@@ -10,7 +10,10 @@ class SharedPreferencesHandler {
 
   Future<String?> getText(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
+    if(prefs.containsKey(key)) {
+      return prefs.getString(key);
+    }
+    return null;
   }
 
   Future<void> saveImage(String key, List<int> imageBytes) async {

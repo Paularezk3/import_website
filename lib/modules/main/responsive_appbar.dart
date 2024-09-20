@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/app_constants.dart';
+import '../../core/utils/app_colors.dart';
+import '../../core/utils/app_constants.dart';
 
 class ResponsiveAppBar extends SliverPersistentHeaderDelegate {
   final bool isDrawerOpen;
@@ -41,12 +41,11 @@ class ResponsiveAppBar extends SliverPersistentHeaderDelegate {
           Text(
             AppConstants.companyShortName,
             style: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w900,
-                                    color: AppColors.notBlackAndWhiteColor(context)
-                                  ),
-                                ),
+              textStyle: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.notBlackAndWhiteColor(context)),
+            ),
           ),
         ],
       ),
