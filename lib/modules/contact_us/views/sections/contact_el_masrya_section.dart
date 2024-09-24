@@ -26,11 +26,11 @@ class ContactElMasryaSection extends StatelessWidget {
           DefaultTextFormField(
             color: AppColors.notBlackAndWhiteColor(context),
             controller: nameTextController,
-            hintText: "Enter your name",
+            hintText: "Enter your Name".tr,
             keyboardType: TextInputType.name,
-            labelText: "Name",
+            labelText: "Name".tr,
             validator: (value) {
-              if (value == "") return "Enter your Name";
+              if (value == "") return "Enter your Name".tr;
               return null;
             },
           ),
@@ -38,13 +38,13 @@ class ContactElMasryaSection extends StatelessWidget {
           DefaultTextFormField(
             color: AppColors.notBlackAndWhiteColor(context),
             controller: emailTextController,
-            hintText: "Enter your email",
+            hintText: "Enter your email".tr,
             keyboardType: TextInputType.emailAddress,
-            labelText: "Email",
+            labelText: "Email".tr,
             validator: (value) {
-              if (value == "") return "Enter your Email";
+              if (value == "") return "Enter your email".tr;
               if (value != "" && !value!.contains("@")) {
-                return "Enter a correct email";
+                return "Enter a correct email".tr;
               }
               return null;
             },
@@ -53,11 +53,11 @@ class ContactElMasryaSection extends StatelessWidget {
           DefaultTextFormField(
             color: AppColors.notBlackAndWhiteColor(context),
             controller: descriptionTextController,
-            hintText: "Enter any Description",
+            hintText: "Enter any description".tr,
             keyboardType: TextInputType.text,
-            labelText: "Description",
+            labelText: "Description".tr,
             validator: (value) {
-              if (value == "") return "Enter any Description";
+              if (value == "") return "Enter any description".tr;
               return null;
             },
           ),
@@ -65,7 +65,7 @@ class ContactElMasryaSection extends StatelessWidget {
           Obx(() {
             return DefaultSubmitButton(
               isLoading: Get.find<MainHomeController>().isSubmitted.value,
-              text: "Submit Your Inquiry",
+              text: "Submit Your Inquiry".tr,
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   Get.find<MainHomeController>().submitInquiry(
@@ -88,7 +88,7 @@ class ContactElMasryaSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Contact Al Masria Team",
+            "contact al masria team".tr,
             textAlign: TextAlign.left,
             style: Theme.of(context)
                 .textTheme
@@ -104,7 +104,7 @@ class ContactElMasryaSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Get in touch for inquiries about our recycling machines and services. We are here to assist you with your needs.",
+                      "Get in touch for inquiries about our recycling machines and services. We are here to assist you with your needs.".tr,
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
@@ -113,7 +113,7 @@ class ContactElMasryaSection extends StatelessWidget {
                     ),
                     const SizedBox(height: 25),
                     Text(
-                      "Connect",
+                      "connect".tr,
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -125,7 +125,7 @@ class ContactElMasryaSection extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     Text(
-                      "Support",
+                      "support".tr,
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -138,7 +138,7 @@ class ContactElMasryaSection extends StatelessWidget {
                         String emailSubject =
                             Uri.encodeComponent("Hello from Website");
                         String emailBody = Uri.encodeComponent(
-                            "Hi! I'm interested to Work with Each other.");
+                            "Hi! I'm interested to Work with Each other.".tr);
 
                         Uri emailUri = Uri.parse(
                             "mailto:$recipientEmail?subject=$emailSubject&body=$emailBody");
@@ -146,7 +146,7 @@ class ContactElMasryaSection extends StatelessWidget {
                         if (await canLaunchUrl(emailUri)) {
                           await launchUrl(emailUri);
                         } else {
-                          throw 'Could not launch email app';
+                          throw 'Could not launch email app'.tr;
                         }
                       },
                       child: Text(

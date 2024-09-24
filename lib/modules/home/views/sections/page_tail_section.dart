@@ -42,7 +42,7 @@ class _PageTailSectionState extends State<PageTailSection> {
       children: [
         const SizedBox(height: 16),
         Text(
-          'Innovative',
+          'Innovative'.tr,
           textAlign: TextAlign.left,
           style: GoogleFonts.openSans(
             textStyle: const TextStyle(
@@ -53,10 +53,10 @@ class _PageTailSectionState extends State<PageTailSection> {
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Quality recycling machines since 2008 in Egypt.',
+        Text(
+          'Quality recycling machines since 2008 in Egypt.'.tr,
           textAlign: TextAlign.left,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
           ),
@@ -92,7 +92,7 @@ class _PageTailSectionState extends State<PageTailSection> {
         ),
         const SizedBox(height: 20),
         Text(
-          'Contact Us',
+          'contact_us'.tr,
           textAlign: TextAlign.left,
           style: GoogleFonts.openSans(
             textStyle: const TextStyle(
@@ -154,7 +154,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                 }
               },
               child: Text(
-                'Contact via WhatsApp',
+                'Contact via WhatsApp'.tr,
                 style: GoogleFonts.openSans(
                   textStyle: const TextStyle(
                     fontSize: 14,
@@ -181,7 +181,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                     Uri.encodeComponent("elmasrya2008@gmail.com");
                 String emailSubject = Uri.encodeComponent("Hello from Website");
                 String emailBody = Uri.encodeComponent(
-                    "Hi! I'm interested to Work with Each other.");
+                    "Hi! I'm interested to Work with Each other.".tr);
 
                 Uri emailUri = Uri.parse(
                     "mailto:$recipientEmail?subject=$emailSubject&body=$emailBody");
@@ -209,7 +209,7 @@ class _PageTailSectionState extends State<PageTailSection> {
 
         const SizedBox(height: 25),
         Text(
-          'Get All The Updates',
+          'Get All The Updates'.tr,
           textAlign: TextAlign.left,
           style: GoogleFonts.openSans(
             textStyle: const TextStyle(
@@ -226,29 +226,29 @@ class _PageTailSectionState extends State<PageTailSection> {
             children: [
               DefaultTextFormField(
                 controller: nameTextController,
-                hintText: "Enter your name",
+                hintText: "Enter your name".tr,
                 keyboardType: TextInputType.name,
-                labelText: "Name",
+                labelText: "Name".tr,
                 validator: (value) {
-                  if (value == "") return "Enter your Name";
+                  if (value == "") return "Enter your Name".tr;
                   return null;
                 },
               ),
               DefaultTextFormField(
                 controller: emailTextController,
-                hintText: "Enter your email",
+                hintText: "Enter your email".tr,
                 keyboardType: TextInputType.emailAddress,
-                labelText: "Email",
+                labelText: "Email".tr,
                 validator: (value) {
-                  if (value == "") return "Enter your Email";
+                  if (value == "") return "Enter your Email".tr;
                   if (value != "" && value!.contains("@")) {
-                    return "Enter a correct email";
+                    return "Enter a correct email".tr;
                   }
                   return null;
                 },
               ),
               DefaultSubmitButton(
-                  text: "Submit",
+                  text: "Submit".tr,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Get.find<MainHomeController>().submitEmail(
@@ -266,7 +266,7 @@ class _PageTailSectionState extends State<PageTailSection> {
   Column laptop(BuildContext context) {
     var children = [
       Text(
-        'Contact Us',
+        'contact_us'.tr,
         textAlign: TextAlign.left,
         style: GoogleFonts.openSans(
           textStyle: const TextStyle(
@@ -328,7 +328,7 @@ class _PageTailSectionState extends State<PageTailSection> {
               }
             },
             child: Text(
-              'Contact via WhatsApp',
+              'Contact via WhatsApp'.tr,
               style: GoogleFonts.openSans(
                 textStyle: const TextStyle(
                   fontSize: 14,
@@ -386,7 +386,7 @@ class _PageTailSectionState extends State<PageTailSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Innovative',
+          'Innovative'.tr,
           textAlign: TextAlign.start,
           style: GoogleFonts.openSans(
             color: AppColors.blackAndWhiteLightMode,
@@ -407,10 +407,10 @@ class _PageTailSectionState extends State<PageTailSection> {
                   CrossAxisAlignment.start, // Align text to the left
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Text(
-                  'Quality recycling machines since 2008 in Egypt.',
+                Text(
+                  'Quality recycling machines since 2008 in Egypt.'.tr,
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
                   ),
@@ -462,7 +462,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Get All The Updates',
+                    'Get All The Updates'.tr,
                     textAlign: TextAlign.left,
                     style: GoogleFonts.openSans(
                       textStyle: const TextStyle(
@@ -482,11 +482,11 @@ class _PageTailSectionState extends State<PageTailSection> {
                               .infinity, // Ensure full width for TextField
                           child: DefaultTextFormField(
                             controller: nameTextController,
-                            hintText: "Enter your name",
+                            hintText: "Enter your name".tr,
                             keyboardType: TextInputType.name,
-                            labelText: "Name",
+                            labelText: "Name".tr,
                             validator: (value) {
-                              if (value == "") return "Enter your Name";
+                              if (value == "") return "Enter your Name".tr;
                               return null;
                             },
                           ),
@@ -497,13 +497,13 @@ class _PageTailSectionState extends State<PageTailSection> {
                               .infinity, // Ensure full width for TextField
                           child: DefaultTextFormField(
                             controller: emailTextController,
-                            hintText: "Enter your email",
+                            hintText: "Enter your email".tr,
                             keyboardType: TextInputType.emailAddress,
-                            labelText: "Email",
+                            labelText: "Email".tr,
                             validator: (value) {
-                              if (value == "") return "Enter your Email";
+                              if (value == "") return "Enter your Email".tr;
                               if (value != "" && !value!.contains("@")) {
-                                return "Enter a correct email";
+                                return "Enter a correct email".tr;
                               }
                               return null;
                             },
@@ -511,7 +511,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                         ),
                         const SizedBox(height: 20),
                         DefaultSubmitButton(
-                          text: "Submit",
+                          text: "Submit".tr,
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               Get.find<MainHomeController>().submitEmail(

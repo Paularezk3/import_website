@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:import_website/core/utils/translation/translation_service.dart';
 import 'package:import_website/modules/contact_us/views/desktop_contact_us_view.dart';
 import 'package:import_website/modules/home/controller/home_controller.dart';
 import 'package:import_website/modules/home/views/laptop_home_view.dart';
@@ -8,6 +9,7 @@ import 'package:import_website/modules/home/views/laptop_home_view.dart';
 import '../../core/utils/app_colors.dart';
 import '../../core/utils/app_constants.dart';
 import '../../widgets/defaults/default_loading_widget.dart';
+import '../services/views/desktop_services_view.dart';
 import 'controllers/main_home_controller.dart';
 
 class DesktopMainContent extends StatelessWidget {
@@ -20,7 +22,8 @@ class DesktopMainContent extends StatelessWidget {
   Widget _buildAppBarButton(BuildContext context,
       {required String title,
       required bool isActive,
-      required VoidCallback onTap}) {
+      required VoidCallback onTap,
+      bool isPage = true}) {
     Color hoverColorText =
         AppColors.notBlackAndWhiteColor(context); // Hover text color
     Color hoverColorLine =
@@ -49,26 +52,29 @@ class DesktopMainContent extends StatelessWidget {
                   duration:
                       const Duration(milliseconds: 250), // Animation duration
                   style: TextStyle(
-                    color: isActive
+                    color: isPage?(isActive
                         ? activeColor // Active button color
                         : (isHovered
                             ? hoverColorText
-                            : defaultColor), // Hover or default color
+                            : defaultColor)):hoverColorText, // Hover or default color
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                   child: Text(title),
                 ),
-                const SizedBox(height: 4),
-                AnimatedContainer(
-                  duration:
-                      const Duration(milliseconds: 150), // Animation duration
-                  height: 2,
-                  width: isActive || isHovered
-                      ? 30
-                      : 0, // Animate width for underline
-                  color: isActive ? activeColor : hoverColorLine, // Line color
-                ),
+                if (isPage) ...[
+                  const SizedBox(height: 4),
+                  AnimatedContainer(
+                    duration:
+                        const Duration(milliseconds: 150), // Animation duration
+                    height: 2,
+                    width: isActive || isHovered
+                        ? 30
+                        : 0, // Animate width for underline
+                    color:
+                        isActive ? activeColor : hoverColorLine, // Line color
+                  ),
+                ]
               ],
             ),
           ),
@@ -79,6 +85,9 @@ class DesktopMainContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String currentLanguageCode =
+        Get.locale?.languageCode ?? 'en'; // Default to 'en' if null
+
     return GetBuilder<MainHomeController>(builder: (_) {
       return Scaffold(
         backgroundColor: AppColors.blackAndWhiteColor(context),
@@ -97,22 +106,31 @@ class DesktopMainContent extends StatelessWidget {
                 height: 30,
                 fit: BoxFit.contain,
               ),
-              const SizedBox(width: 12.0),
-              Text(
-                AppConstants.companyShortName,
-                style: GoogleFonts.lato(
-                  textStyle: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.notBlackAndWhiteColor(context)),
-                ),
-              ),
+              if (MediaQuery.of(context).size.width > 700) ...[
+                AnimatedContainer(
+                  duration: const Duration(seconds: 1),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 12.0),
+                      Text(
+                        AppConstants.companyShortName.tr,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w900,
+                              color: AppColors.notBlackAndWhiteColor(context)),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ]
             ],
           ),
           actions: [
             _buildAppBarButton(
               context,
-              title: 'Home',
+              title: 'home'.tr,
               isActive: mainHomeController.currentPage.value == WebsiteView.home
                   ? true
                   : false,
@@ -123,7 +141,7 @@ class DesktopMainContent extends StatelessWidget {
             ),
             _buildAppBarButton(
               context,
-              title: 'About',
+              title: 'about'.tr,
               isActive:
                   mainHomeController.currentPage.value == WebsiteView.about
                       ? true
@@ -135,7 +153,7 @@ class DesktopMainContent extends StatelessWidget {
             ),
             _buildAppBarButton(
               context,
-              title: 'Services',
+              title: 'services'.tr,
               isActive:
                   mainHomeController.currentPage.value == WebsiteView.services
                       ? true
@@ -147,7 +165,7 @@ class DesktopMainContent extends StatelessWidget {
             ),
             _buildAppBarButton(
               context,
-              title: 'Contact Us',
+              title: 'contact_us'.tr,
               isActive:
                   mainHomeController.currentPage.value == WebsiteView.contactUs
                       ? true
@@ -156,6 +174,16 @@ class DesktopMainContent extends StatelessWidget {
                 mainHomeController.switchWebsiteView(WebsiteView.contactUs);
               },
             ),
+            _buildAppBarButton(context,
+                title: currentLanguageCode == "en" ? 'العربية-🇪🇬' : 'ENGLISH-🇱🇷',
+                isActive: mainHomeController.currentPage.value ==
+                        WebsiteView.contactUs
+                    ? true
+                    : false, onTap: () {
+              currentLanguageCode == "en"
+                  ? TranslationService.changeLanguage(const Locale("ar", "EG"))
+                  : TranslationService.changeLanguage(const Locale("en", "US"));
+            }, isPage: false),
           ],
         ),
         body: SafeArea(
@@ -182,8 +210,9 @@ class DesktopMainContent extends StatelessWidget {
                       return const DesktopContactUsView();
                     } else if (mainHomeController.currentPage.value ==
                         WebsiteView.services) {
+                      return const DesktopServicesView();
+                    } else
                       return const SliverToBoxAdapter();
-                    } else return const SliverToBoxAdapter();
                   }
                 }),
               ],

@@ -41,7 +41,7 @@ class TabletMainContent extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 10),
-            const Expanded(
+            Expanded(
               child: Text(
                 AppConstants.companyShortName,
                 overflow: TextOverflow.ellipsis,

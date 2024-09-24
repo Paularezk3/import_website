@@ -59,7 +59,7 @@ class _OurGallerySectionState extends State<OurGallerySection>
       children: [
         const SizedBox(height: 16),
         Text(
-          'Our Gallery',
+          'Our Gallery'.tr,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
             color: AppColors.notBlackAndWhiteColor(context)
@@ -67,7 +67,7 @@ class _OurGallerySectionState extends State<OurGallerySection>
         ),
         const SizedBox(height: 8),
         Text(
-          'Explore our diverse range of recycling machines and innovations.',
+          'Explore our diverse range of recycling machines and innovations.'.tr,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: AppColors.notBlackAndWhiteColor(
@@ -106,7 +106,7 @@ class _OurGallerySectionState extends State<OurGallerySection>
       children: [
         const SizedBox(height: 16),
         Text(
-          'Our Gallery',
+          'Our Gallery'.tr,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
             color: AppColors.notBlackAndWhiteColor(context)
@@ -114,7 +114,7 @@ class _OurGallerySectionState extends State<OurGallerySection>
         ),
         const SizedBox(height: 8),
         Text(
-          'Explore our diverse range of recycling machines and innovations.',
+          'Explore our diverse range of recycling machines and innovations.'.tr,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium
         ),

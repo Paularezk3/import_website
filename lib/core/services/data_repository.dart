@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:http/http.dart' as http;
 import 'package:import_website/core/services/api_urls.dart';
-import 'package:intl/intl.dart';
 
 import 'debugging_test.dart';
 

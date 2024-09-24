@@ -59,17 +59,17 @@ class _OurServicesSectionState extends State<OurServicesSection>
     return Column(
       children: [
         Text(
-          'Our Services',
+          'Our Services'.tr,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
             color: AppColors.notBlackAndWhiteColor(context)
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Providing high-quality recycling machines and spare parts with a commitment to continuous improvement and reliability.',
+        Text(
+          'Providing high-quality recycling machines and spare parts with a commitment to continuous improvement and reliability.'.tr,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
           ),
@@ -79,7 +79,7 @@ class _OurServicesSectionState extends State<OurServicesSection>
         buildImage('homepage_photo3.jpg', myController.photos),
         const SizedBox(height: 16),
         Text(
-          'Machine importing',
+          'Machine importing'.tr,
           textAlign: TextAlign.left,
           style: GoogleFonts.roboto(
             textStyle: TextStyle(
@@ -90,10 +90,10 @@ class _OurServicesSectionState extends State<OurServicesSection>
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.',
+        Text(
+          'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.'.tr,
           textAlign: TextAlign.left,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
           ),
@@ -110,7 +110,7 @@ class _OurServicesSectionState extends State<OurServicesSection>
     return Column(
       children: [
         Text(
-          'Our Services',
+          'Our Services'.tr,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
             color: AppColors.notBlackAndWhiteColor(context)
@@ -125,7 +125,7 @@ class _OurServicesSectionState extends State<OurServicesSection>
         ),
         const SizedBox(height: 8),
         Text(
-            'Providing high-quality recycling machines and spare parts with a commitment to continuous improvement and reliability.',
+            'Providing high-quality recycling machines and spare parts with a commitment to continuous improvement and reliability.'.tr,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium),
         const SizedBox(height: 16),
@@ -138,12 +138,12 @@ class _OurServicesSectionState extends State<OurServicesSection>
                 children: [
                   buildImage('homepage_photo3.jpg', myController.photos),
                   const SizedBox(width: 16),
-                  Text('Machine importing',
+                  Text('Machine importing'.tr,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 8),
                   Text(
-                    'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.',
+                    'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.'.tr,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodySmall
                   ),
@@ -156,12 +156,12 @@ class _OurServicesSectionState extends State<OurServicesSection>
                 children: [
                   buildImage('homepage_photo4.jpg', myController.photos),
                   const SizedBox(height: 16),
-                  Text('Quality Assurance',
+                  Text('Quality Assurance'.tr,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 8),
                   Text(
-                    'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.',
+                    'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.'.tr,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodySmall
                   ),

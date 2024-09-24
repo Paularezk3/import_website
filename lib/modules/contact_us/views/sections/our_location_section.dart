@@ -2,6 +2,7 @@ import 'dart:html'; // For DivElement, document etc.
 import 'dart:ui_web';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:import_website/core/utils/app_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'; // For Android/iOS
@@ -25,7 +26,7 @@ class OurLocationSection extends StatelessWidget {
       if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
         await launchUrl(Uri.parse(googleMapsUrl));
       } else {
-        throw 'Could not open Google Maps.';
+        throw 'Could not open Google Maps.'.tr;
       }
     }
 
@@ -40,10 +41,10 @@ class OurLocationSection extends StatelessWidget {
               : _buildMobileMap(openGoogleMaps, location, mainController),
         ),
         const SizedBox(height: 20),
-        const Text(
-          'This is a static map showing a specific location.\nTap the map to open Google Maps.',
+        Text(
+          'This is a static map showing a specific location.\nTap the map to open Google Maps.'.tr,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         )
       ],
     );
@@ -61,7 +62,7 @@ class OurLocationSection extends StatelessWidget {
                   CrossAxisAlignment.start, // Align text to the start
               children: [
                 Text(
-                  "Our Location",
+                  "our_location".tr,
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium!
@@ -70,7 +71,7 @@ class OurLocationSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "Al Masria is located in Egypt, specializing in importing recycling plastic machines since 2008.",
+                  "Al Masria is located in Egypt, specializing in importing recycling plastic machines since 2008.".tr,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
@@ -78,14 +79,14 @@ class OurLocationSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 25),
                 Text(
-                  "Address",
+                  "address".tr,
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
                       .copyWith(fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  "Abu Zaabal, Qalubya",
+                  "Abu Zaabal, Qalubya".tr,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 if (isMobile) ...[

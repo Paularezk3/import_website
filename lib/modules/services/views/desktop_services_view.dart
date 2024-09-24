@@ -5,8 +5,8 @@ import 'package:import_website/modules/home/views/sections/page_tail_section.dar
 
 import 'sections/recycling_services.dart';
 
-class DesktopContactUsView extends StatelessWidget {
-  const DesktopContactUsView({super.key});
+class DesktopServicesView extends StatelessWidget {
+  const DesktopServicesView({super.key});
 
   @override
   Widget build(BuildContext context) {

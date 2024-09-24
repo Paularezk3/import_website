@@ -463,7 +463,7 @@ class GetData extends GetxController {
   RxList<Posts> posts =
       RxList<Posts>();
 
-  Future<List<Posts>> getInventoryPartsMerged() async {
+  Future<List<Posts>> getPosts() async {
     posts.value = await _prefs
         .makeThisOnPrefs<Posts>(
             _prefs.loadPostsFromPrefs, []);

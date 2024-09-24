@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:import_website/core/utils/app_colors.dart';
 import 'package:import_website/modules/home/views/mobile_home_view.dart';
 import 'package:import_website/widgets/defaults/default_loading_widget.dart';
+import '../../core/utils/translation/translation_service.dart';
 import '../contact_us/views/mobile_contact_us_view.dart';
 import '../home/controller/home_controller.dart';
+import '../services/views/mobile_services_view.dart';
 import 'controllers/main_home_controller.dart';
 import 'responsive_appbar.dart';
 
@@ -28,7 +30,8 @@ class _MobileMainContentState extends State<MobileMainContent>
   Widget _buildNavItem(BuildContext context,
       {required String title,
       required bool isActive,
-      required VoidCallback onTap}) {
+      required VoidCallback onTap,
+      isPage = true}) {
     Color hoverColorText =
         AppColors.notBlackAndWhiteColor(context); // Color on hover
     Color hoverColorLine = Colors.grey[300]!; // Color on hover
@@ -47,23 +50,26 @@ class _MobileMainContentState extends State<MobileMainContent>
                 Text(
                   title,
                   style: TextStyle(
-                    color: isActive
-                        ? activeColor // Active tile color
-                        : (isHovered
-                            ? hoverColorText
-                            : defaultColor), // Hover or default color
+                    color: isPage
+                        ? (isActive
+                            ? activeColor // Active tile color
+                            : (isHovered ? hoverColorText : defaultColor))
+                        : hoverColorText, // Hover or default color
                   ),
                 ),
-                const SizedBox(height: 5),
-                AnimatedContainer(
-                  duration:
-                      const Duration(milliseconds: 150), // Animation duration
-                  height: 2,
-                  width: isActive || isHovered
-                      ? 30
-                      : 0, // Animate width from 0 to 20
-                  color: isActive ? activeColor : hoverColorLine, // Line color
-                ),
+                if (isPage) ...[
+                  const SizedBox(height: 5),
+                  AnimatedContainer(
+                    duration:
+                        const Duration(milliseconds: 150), // Animation duration
+                    height: 2,
+                    width: isActive || isHovered
+                        ? 30
+                        : 0, // Animate width from 0 to 20
+                    color:
+                        isActive ? activeColor : hoverColorLine, // Line color
+                  ),
+                ]
               ],
             ),
             onTap: onTap,
@@ -113,6 +119,8 @@ class _MobileMainContentState extends State<MobileMainContent>
 
   @override
   Widget build(BuildContext context) {
+    String currentLanguageCode =
+        Get.locale?.languageCode ?? 'en'; // Default to 'en' if null
     return Scaffold(
       backgroundColor: AppColors.blackAndWhiteColor(context),
       body: SafeArea(
@@ -149,7 +157,7 @@ class _MobileMainContentState extends State<MobileMainContent>
                   return const MobileContactUsView();
                 } else if (mainHomeController.currentPage.value ==
                     WebsiteView.services) {
-                  return Container();
+                  return MobileServicesView();
                 } else {
                   return Container();
                 }
@@ -172,7 +180,7 @@ class _MobileMainContentState extends State<MobileMainContent>
                       // Home ListTile
                       _buildNavItem(
                         context,
-                        title: 'Home',
+                        title: 'home'.tr,
                         isActive:
                             Get.find<MainHomeController>().currentPage.value ==
                                 WebsiteView.home,
@@ -185,7 +193,7 @@ class _MobileMainContentState extends State<MobileMainContent>
                       // Services ListTile
                       _buildNavItem(
                         context,
-                        title: 'Services',
+                        title: 'services'.tr,
                         isActive:
                             Get.find<MainHomeController>().currentPage.value ==
                                 WebsiteView.services,
@@ -198,7 +206,7 @@ class _MobileMainContentState extends State<MobileMainContent>
                       // About ListTile
                       _buildNavItem(
                         context,
-                        title: 'About',
+                        title: 'about'.tr,
                         isActive:
                             Get.find<MainHomeController>().currentPage.value ==
                                 WebsiteView.about,
@@ -209,18 +217,29 @@ class _MobileMainContentState extends State<MobileMainContent>
                         },
                       ),
                       // Contact ListTile
-                      _buildNavItem(
-                        context,
-                        title: 'Contact',
-                        isActive:
-                            Get.find<MainHomeController>().currentPage.value ==
-                                WebsiteView.contactUs,
-                        onTap: () {
-                          Get.find<MainHomeController>()
-                              .switchWebsiteView(WebsiteView.contactUs);
-                          _toggleDrawer();
-                        },
-                      ),
+                      _buildNavItem(context,
+                          title: 'contact_us'.tr,
+                          isActive: Get.find<MainHomeController>()
+                                  .currentPage
+                                  .value ==
+                              WebsiteView.contactUs, onTap: () {
+                        Get.find<MainHomeController>()
+                            .switchWebsiteView(WebsiteView.contactUs);
+                        _toggleDrawer();
+                      }),
+                      // Arabic ListTile
+                      _buildNavItem(context,
+                          title: currentLanguageCode == "en"
+                              ? 'العربية-🇪🇬'
+                              : 'ENGLISH-🇱🇷',
+                          isActive: false, onTap: () {
+                        currentLanguageCode == "en"
+                            ? TranslationService.changeLanguage(
+                                const Locale("ar", "EG"))
+                            : TranslationService.changeLanguage(
+                                const Locale("en", "US"));
+                        _toggleDrawer();
+                      }),
                     ],
                   ),
                 ),

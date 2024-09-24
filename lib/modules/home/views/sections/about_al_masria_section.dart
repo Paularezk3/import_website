@@ -60,7 +60,7 @@ class _AboutAlMasriaSectionState extends State<AboutAlMasriaSection>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'About Al Masria',
+          'About Al Masria'.tr,
           style: GoogleFonts.openSans(
             textStyle: TextStyle(
               fontSize: 24,
@@ -70,9 +70,9 @@ class _AboutAlMasriaSectionState extends State<AboutAlMasriaSection>
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Leading importer of recycling machines in Egypt since 2008, committed to quality and continuous improvement.',
-          style: TextStyle(
+        Text(
+          'Leading importer of recycling machines in Egypt since 2008, committed to quality and continuous improvement.'.tr,
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
           ),
@@ -100,7 +100,7 @@ class _AboutAlMasriaSectionState extends State<AboutAlMasriaSection>
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                'About Al Masria',
+                'About Al Masria'.tr,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
             color: AppColors.notBlackAndWhiteColor(context)
           ),
@@ -113,9 +113,9 @@ class _AboutAlMasriaSectionState extends State<AboutAlMasriaSection>
                 // ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Leading importer of recycling machines\nin Egypt since 2008, committed to quality\nand continuous improvement.',
-                style: TextStyle(
+              Text(
+                'Leading importer of recycling machines in Egypt since 2008, committed to quality and continuous improvement.'.tr,
+                style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 16,
                 ),

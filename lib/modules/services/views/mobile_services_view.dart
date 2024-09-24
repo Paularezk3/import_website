@@ -5,8 +5,8 @@ import 'package:import_website/modules/home/views/sections/page_tail_section.dar
 
 import 'sections/recycling_services.dart';
 
-class MobileContactUsView extends StatelessWidget {
-  const MobileContactUsView({super.key});
+class MobileServicesView extends StatelessWidget {
+  const MobileServicesView({super.key});
 
   @override
   Widget build(BuildContext context) {
