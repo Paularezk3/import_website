@@ -12,7 +12,7 @@ class DesktopServicesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ContactUsController>(builder: (_) {
-      return SliverToBoxAdapter(
+      return SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 40,),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../controller/home_controller.dart';
@@ -9,17 +10,16 @@ import 'sections/page_tail_section.dart';
 import 'sections/starting_video.dart';
 
 class MobileHomeView extends StatelessWidget {
-  const MobileHomeView({
+  MobileHomeView({
     super.key,
-    required this.myController,
   });
 
-  final HomeController myController;
+  final HomeController myController= Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
     myController.changeIsMobile(true);
-    return SliverToBoxAdapter(
+    return SingleChildScrollView(
       child: Column(
         children: [
           StartingVideo(myController: myController),

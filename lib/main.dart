@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
       title: AppConstants.companyShortName,
       theme: AppTheme.lightTheme(context), // Light theme
       darkTheme: AppTheme.darkTheme(context), // Dark theme
-      // themeMode: ThemeMode.light, // Switch based on system preference
-      themeMode: ThemeMode.system, // Switch based on system preference
+      themeMode: ThemeMode.light, // Switch based on system preference
+      // themeMode: ThemeMode.system, // Switch based on system preference
       translations: TranslationService(),
       locale: Get.deviceLocale, // Get.deviceLocale or default
       fallbackLocale: TranslationService.fallbackLocale,
