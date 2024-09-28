@@ -10,15 +10,15 @@ import 'sections/our_services_section.dart';
 import 'sections/page_tail_section.dart';
 
 class LaptopHomeView extends StatelessWidget {
-  LaptopHomeView({super.key});
+  const LaptopHomeView({super.key, required this.myController});
 
-  final HomeController myController = Get.find<HomeController>();
+  final HomeController myController;
 
   @override
   Widget build(BuildContext context) {
     myController.changeIsMobile(false);
     return GetBuilder<HomeController>(builder: (_) {
-      return SingleChildScrollView(
+      return SliverToBoxAdapter(
         child: Column(
           children: [
             StartingVideo(myController: myController),
