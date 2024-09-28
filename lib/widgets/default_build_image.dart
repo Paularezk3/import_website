@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:import_website/modules/main/controllers/main_home_controller.dart';
 import 'package:shimmer/shimmer.dart'; // Import the shimmer package
 
 import '../core/services/api_urls.dart';
@@ -7,8 +9,10 @@ import '../core/utils/app_colors.dart';
 
 /// Updated fetchImage method to accept a file name (${ApiUrls.baseUrl}files/homepage/photos/get_this.php?path=$fileName)
 Future<http.Response> fetchImage(String fileName) async {
-  final String url =
-      '${ApiUrls.baseUrl}files/homepage/photos/get_this.php?path=$fileName';
+
+  final String url = Get.find<MainHomeController>().currentPage.value == WebsiteView.home?
+      '${ApiUrls.baseUrl}files/homepage/photos/get_this.php?path=$fileName':
+      '${ApiUrls.baseUrl}files/services_page/photos/get_this.php?path=$fileName';
 
   final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {

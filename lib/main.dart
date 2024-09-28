@@ -6,7 +6,6 @@ import 'package:import_website/core/bindings/initial_bindings.dart';
 import 'package:import_website/core/utils/app_constants.dart';
 import 'package:import_website/core/utils/app_theme.dart';
 import 'package:import_website/routes/app_pages.dart';
-import 'package:import_website/routes/app_routes.dart';
 
 import 'core/utils/translation/translation_service.dart';
 // import 'firebase_options.dart';
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
       locale: Get.deviceLocale, // Get.deviceLocale or default
       fallbackLocale: TranslationService.fallbackLocale,
       initialBinding: InitialBindings(),
-      initialRoute: AppRoutes.home,
+      initialRoute: '/home',
       getPages: AppPages.routes,
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:import_website/modules/main/controllers/main_home_controller.dart';
+import 'package:import_website/modules/home/controller/home_controller.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../widgets/default_build_image.dart';
 
@@ -17,7 +17,7 @@ class _AboutAlMasriaSectionState extends State<AboutAlMasriaSection>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
-  final myController = Get.find<MainHomeController>();
+  final myController = Get.find<HomeController>();
 
   @override
   void initState() {

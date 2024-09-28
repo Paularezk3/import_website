@@ -14,6 +14,16 @@ class DataRepository {
         'files/database/database/getPosts.php');
   }
 
+  Future<List<dynamic>> fetchMachinesFromServer() async {
+    return await serverHelper.fetchData(
+        'files/database/database/getMachines.php');
+  }
+
+  Future<List<dynamic>> fetchSparePartsFromServer() async {
+    return await serverHelper.fetchData(
+        'files/database/database/getSpareParts.php');
+  }
+
   Future<void> addCustomerToNewsletterToServer(
       String name, String email, String errorString) async {
     return await serverHelper.postData(

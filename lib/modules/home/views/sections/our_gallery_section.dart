@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:import_website/core/utils/app_colors.dart';
-import 'package:import_website/modules/main/controllers/main_home_controller.dart';
 import '../../../../widgets/default_build_image.dart';
+import '../../controller/home_controller.dart';
 
 class OurGallerySection extends StatefulWidget {
   final bool isMobile;
@@ -16,7 +16,7 @@ class _OurGallerySectionState extends State<OurGallerySection>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
-  final myController = Get.find<MainHomeController>();
+  final myController = Get.find<HomeController>();
 
   @override
   void initState() {

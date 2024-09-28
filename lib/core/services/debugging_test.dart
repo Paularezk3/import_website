@@ -7,7 +7,7 @@ class DebuggingTest{
   // Simulate a delay
   await Future.delayed(Duration(seconds: seconds));
 
-  printSomething('Finished laoading.');
+  printSomething('Finished loading.');
 }
 
   static void printSomething(String something) async {

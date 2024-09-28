@@ -14,7 +14,6 @@ class MainHomeController extends GetxController {
   Rx<WebsiteView> currentPage = WebsiteView.home.obs;
   RxBool isSubmitted = false.obs;
 
-  var photos = <Map<String, dynamic>>[].obs; // List to hold photo data
 
   void switchWebsiteView(WebsiteView newValue) {
     currentPage.value = newValue;
@@ -54,9 +53,7 @@ class MainHomeController extends GetxController {
           img['base64Content'] = base64ToImage(img['base64Content']);
         }
 
-        // Now, update the observable list
-        photos.value = tempPhotos;
-        return photos;
+        return tempPhotos;
       } else {
         DebuggingTest.printSomething(
             'Failed to load photos: ${response.statusCode}');

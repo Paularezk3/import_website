@@ -7,8 +7,8 @@ import 'language_translations.dart';
 
 class TranslationService extends Translations {
   static final _pref = SharedPreferencesHandler();
-  static const fallbackLocale = Locale('en', 'US');
-
+  static const fallbackLocale = Locale('ar', 'EG');
+  static Rx<Locale> currentLang = Rx<Locale>(const Locale("en"));
   static const _localeKey = 'locale';
 
   static Future<Locale?> get locale async {
@@ -32,6 +32,7 @@ class TranslationService extends Translations {
 
   static Future<void> changeLanguage(Locale newValue) async {
     TranslationService.saveLocale(newValue);
+    currentLang.value = newValue;
     Get.updateLocale(newValue);
   }
 }

@@ -1,4 +1,6 @@
+import 'package:import_website/core/database_classes/machines.dart';
 import 'package:import_website/core/database_classes/posts.dart';
+import 'package:import_website/core/database_classes/spare_parts.dart';
 import 'package:import_website/core/services/shared_preference_handler.dart';
 import 'debugging_test.dart';
 import 'exceptions_handling.dart';
@@ -25,8 +27,8 @@ class PrefsHelper {
   }
 
   String postsKey = "posts";
-  Future<void> savePostsToPrefs(String posts) async {
-    sharedPreferencesController.saveText(postsKey, posts);
+  Future<void> savePostsToPrefs(List<Posts> posts) async {
+    sharedPreferencesController.saveText(postsKey, json.encode(posts));
   }
 
   Future<List<Posts>> loadPostsFromPrefs() async {
@@ -35,6 +37,32 @@ class PrefsHelper {
       return parsePostsListItems(jsonDecode(json));
     }
     return <Posts>[];
+  }
+
+  String machinesKey = "machines";
+  Future<void> saveMachinesToPrefs(List<Machines> machines) async {
+    sharedPreferencesController.saveText(machinesKey, json.encode(machines));
+  }
+
+  Future<List<Machines>> loadMachinesFromPrefs() async {
+    var json = await sharedPreferencesController.getText(machinesKey);
+    if(json != null) {
+      return parseMachinesListItems(jsonDecode(json));
+    }
+    return <Machines>[];
+  }
+
+  String sparePartsKey = "spare_parts";
+  Future<void> saveSparePartsToPrefs(List<SpareParts> spareParts) async {
+    sharedPreferencesController.saveText(sparePartsKey, json.encode(spareParts));
+  }
+
+  Future<List<SpareParts>> loadSparePartsFromPrefs() async {
+    var json = await sharedPreferencesController.getText(sparePartsKey);
+    if(json != null) {
+      return parseSparePartsListItems(jsonDecode(json));
+    }
+    return <SpareParts>[];
   }
 
   // Future<void> saveSparePartsToPrefs(List<dynamic> spareParts) async {
@@ -52,12 +80,12 @@ class PrefsHelper {
   //   return <SparePartsListItem>[];
   // }
 
-  // // Future<void> saveCustomerInvoiceOffersToPrefs(
-  // //     List<dynamic> offers, int customerID) async {
-  // //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  // //   String key = 'invoice_offers_$customerID';
-  // //   prefs.setString(key, json.encode(offers));
-  // // }
+  // Future<void> saveCustomerInvoiceOffersToPrefs(
+  //     List<dynamic> offers, int customerID) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String key = 'invoice_offers_$customerID';
+  //   prefs.setString(key, json.encode(offers));
+  // }
 
   // // Future<List<InvoiceOffer>> loadCustomerInvoiceOffersFromPrefs(
   // //     int customerID) async {

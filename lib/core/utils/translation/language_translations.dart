@@ -48,9 +48,22 @@ const Map<String, String> enUS = {
   "Submit": "Submit",
   'Contact via WhatsApp': 'Contact via WhatsApp',
   'Learn More': 'Learn More',
-  'Quality machines since 2008,\nzero returns, continuous improvement.':'Quality machines since 2008,\nzero returns, continuous improvement.',
-  'Welcome to Our Company':'Welcome to Our Company',
-  'Error loading video':'Error loading video'
+  'Quality machines since 2008,\nzero returns, continuous improvement.':
+      'Quality machines since 2008,\nzero returns, continuous improvement.',
+  'Welcome to Our Company': 'Welcome to Our Company',
+  'Error loading video': 'Error loading video',
+  "Al Masria imports diverse recycling machines, ensuring quality and reliability for our clients.":
+      "Al Masria imports diverse recycling machines, ensuring quality and reliability for our clients.",
+  "Recycling Services Overview": "Recycling Services Overview",
+  "Regular imports of spare parts support machine reliability and customer satisfaction.":
+      "Regular imports of spare parts support machine reliability and customer satisfaction.",
+  "Quality Recycling Machines": "Quality Recycling Machines",
+  "We offer shredders, pelletizers, washing lines, and drying machines for various needs.":
+      "We offer shredders, pelletizers, washing lines, and drying machines for various needs.",
+  "Expert Engineering Support": "Expert Engineering Support",
+  "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.":
+      "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.",
+      "Machines": "Machines"
 };
 
 const Map<String, String> arEG = {
@@ -71,7 +84,7 @@ const Map<String, String> arEG = {
       'هذه خريطة ثابتة تظهر موقعًا معينًا.\nانقر على الخريطة لفتح خرائط جوجل.',
   "our_location": "موقعنا",
   "Al Masria is located in Egypt, specializing in importing recycling plastic machines since 2008.":
-      "المصرية تقع في مصر، وتختص في استيراد ماكينات إعادة تدوير البلاستيك منذ عام 2008.", 
+      "المصرية تقع في مصر، وتختص في استيراد ماكينات إعادة تدوير البلاستيك منذ عام 2008.",
   "address": "العنوان",
   "Abu Zaabal, Qalubya": "أبو زعبل، القليوبية",
   "Enter your Name": "ادخل اسمك",
@@ -103,7 +116,20 @@ const Map<String, String> arEG = {
   "Submit": "تسجيل",
   'Contact via WhatsApp': 'التواصل عبر الواتس اب',
   'Learn More': 'اعرف المزيد',
-  'Quality machines since 2008,\nzero returns, continuous improvement.':'آلات ذات جودة عالية منذ عام 2008،\nعوائد ثابتة، وتحسين مستمر.',
-  'Welcome to Our Company':'مرحبا بك في شركتنا',
-  'Error loading video':'يتعزر تشغيل الفيديو'
+  'Quality machines since 2008,\nzero returns, continuous improvement.':
+      'آلات ذات جودة عالية منذ عام 2008،\nعوائد ثابتة، وتحسين مستمر.',
+  'Welcome to Our Company': 'مرحبا بك في شركتنا',
+  'Error loading video': 'يتعزر تشغيل الفيديو',
+  "Al Masria imports diverse recycling machines, ensuring quality and reliability for our clients.":
+      "تستورد شركة المصرية آلات إعادة التدوير المتنوعة، مما يضمن الجودة والموثوقية لعملائنا.",
+  "Recycling Services Overview": "نظرة عامة على خدمات إعادة التدوير",
+  "Regular imports of spare parts support machine reliability and customer satisfaction.":
+      "إن الواردات المنتظمة لقطع الغيار تدعم موثوقية الماكينة ورضا العملاء.",
+  "Quality Recycling Machines": "آلات إعادة التدوير عالية الجودة",
+  "We offer shredders, pelletizers, washing lines, and drying machines for various needs.":
+      "نحن نقدم آلات التقطيع، وآلات التكوير، وخطوط الغسيل، وآلات التجفيف لتلبية احتياجات مختلفة.",
+  "Expert Engineering Support": "دعم هندسي متخصص",
+  "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.":
+      "يضمن مؤسسنا، رزق أيوب، التحسين المستمر والابتكار في آلاتنا.",
+      "Machines": "الماكينات"
 };

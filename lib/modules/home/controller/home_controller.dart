@@ -14,11 +14,12 @@ class HomeController extends GetxController {
   RxString videoError = ''.obs;
   int retryCount = 0;
   final int maxRetries = 3;
+  var photos = <Map<String, dynamic>>[].obs; // List to hold photo data
 
   @override
   void onInit() {
-    super.onInit();
     fetchData();
+    super.onInit();
   }
 
   Future<void> fetchData() async {
@@ -31,24 +32,24 @@ class HomeController extends GetxController {
       Uri.parse(ApiUrls.homePagevideo1Url),
     ).obs;
 
-    // Fetch data with timeout
-    await mainController.fetchDataWithTimeout(
-      'files/homepage/photos/get_these.php?path=/', 
-      timeoutSeconds: 1,
-    ) ?? [];
-
     // Initialize the video
     await _initializeVideoWithRetry();
 
     isLoading.value = false;
     update();
+    // Fetch data with timeout
+    photos.value = await mainController.fetchPhotos(
+          'files/homepage/photos/get_these.php?path=/',
+        ) ??
+        [];
   }
 
   // Retry logic for video initialization
   Future<void> _initializeVideoWithRetry() async {
     while (retryCount < maxRetries) {
       try {
-        initializeVideoPlayerFuture = videoPlayerController.value.initialize().obs;
+        initializeVideoPlayerFuture =
+            videoPlayerController.value.initialize().obs;
         await initializeVideoPlayerFuture.value;
 
         // Create Chewie controller once video is ready
@@ -60,12 +61,12 @@ class HomeController extends GetxController {
           looping: true,
           autoPlay: true,
         ).obs;
-        
+
         return; // Exit on success
       } catch (error) {
         retryCount++;
         videoError.value = 'Attempt $retryCount failed. Retrying...';
-        
+
         // Stop retrying after max retries
         if (retryCount >= maxRetries) {
           videoError.value = 'Failed to load video after several attempts.';

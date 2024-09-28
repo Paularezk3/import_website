@@ -24,7 +24,6 @@ class _MobileMainContentState extends State<MobileMainContent>
   late Animation<double> _drawerAnimation;
   final myController = Get.find<HomeController>();
   final mainHomeController = Get.find<MainHomeController>();
-  late Animation<Offset> _slideAnimation;
 
   // Helper function to build the ListTile with hover and active state
   Widget _buildNavItem(BuildContext context,
@@ -93,17 +92,6 @@ class _MobileMainContentState extends State<MobileMainContent>
       parent: _controller,
       curve: Curves.easeInOut,
     );
-
-    // Slide animation for text
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.5),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ),
-    );
   }
 
   void _toggleDrawer() {
@@ -148,16 +136,14 @@ class _MobileMainContentState extends State<MobileMainContent>
                                   DefaultLoadingWidget())), // Display loading widget
                     );
                   } else {
-                    return MobileHomeView(
-                        myController: myController,
-                        slideAnimation: _slideAnimation);
+                    return MobileHomeView(myController: myController);
                   }
                 } else if (mainHomeController.currentPage.value ==
                     WebsiteView.contactUs) {
                   return const MobileContactUsView();
                 } else if (mainHomeController.currentPage.value ==
                     WebsiteView.services) {
-                  return MobileServicesView();
+                  return const MobileServicesView();
                 } else {
                   return Container();
                 }

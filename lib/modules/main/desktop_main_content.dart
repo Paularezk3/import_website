@@ -52,11 +52,11 @@ class DesktopMainContent extends StatelessWidget {
                   duration:
                       const Duration(milliseconds: 250), // Animation duration
                   style: TextStyle(
-                    color: isPage?(isActive
-                        ? activeColor // Active button color
-                        : (isHovered
-                            ? hoverColorText
-                            : defaultColor)):hoverColorText, // Hover or default color
+                    color: isPage
+                        ? (isActive
+                            ? activeColor // Active button color
+                            : (isHovered ? hoverColorText : defaultColor))
+                        : hoverColorText, // Hover or default color
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -175,7 +175,9 @@ class DesktopMainContent extends StatelessWidget {
               },
             ),
             _buildAppBarButton(context,
-                title: currentLanguageCode == "en" ? 'العربية-🇪🇬' : 'ENGLISH-🇱🇷',
+                title: currentLanguageCode == "en"
+                    ? 'العربية-🇪🇬'
+                    : 'ENGLISH-🇱🇷',
                 isActive: mainHomeController.currentPage.value ==
                         WebsiteView.contactUs
                     ? true
@@ -211,8 +213,9 @@ class DesktopMainContent extends StatelessWidget {
                     } else if (mainHomeController.currentPage.value ==
                         WebsiteView.services) {
                       return const DesktopServicesView();
-                    } else
+                    } else {
                       return const SliverToBoxAdapter();
+                    }
                   }
                 }),
               ],

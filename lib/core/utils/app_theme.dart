@@ -35,9 +35,12 @@ class AppTheme {
           color: AppColors.notBlackAndWhiteColor(context),
         ),
       ),
-      bodyMedium: const TextStyle(
-        fontSize: 16,
-        color: Colors.grey,
+      bodyMedium: GoogleFonts.openSans(
+        textStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey[850],
+        ),
       ),
       bodySmall: GoogleFonts.openSans(
         textStyle: TextStyle(

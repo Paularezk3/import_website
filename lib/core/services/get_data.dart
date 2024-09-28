@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
+import 'package:import_website/core/database_classes/machines.dart';
 import 'package:import_website/core/database_classes/posts.dart';
+import 'package:import_website/core/database_classes/spare_parts.dart';
 
 import 'data_repository.dart';
 import 'debugging_test.dart';
@@ -94,372 +96,6 @@ class GetData extends GetxController {
     }
   }
 
-  // final RxList<CustomerListItem> customers = RxList<CustomerListItem>();
-
-  // Future<List<CustomerListItem>> getCustomers() async {
-  //   customers.value = await _prefs
-  //       .makeThisOnPrefs<CustomerListItem>(_prefs.loadCustomersFromPrefs, []);
-
-  //   customers.value = await getAndSave<CustomerListItem>(
-  //       _repository.fetchCustomersFromServer,
-  //       [],
-  //       parseCustomerListItems,
-  //       [],
-  //       _prefs.saveCustomersToPrefs,
-  //       [],
-  //       customers.toList(),
-  //       "Getting Customers");
-  //   return customers.toList();
-  // }
-
-  // final RxList<SparePartsListItem> sparePartsInDatabase =
-  //     RxList<SparePartsListItem>();
-
-  // Future<List<SparePartsListItem>> getSpareParts() async {
-  //   sparePartsInDatabase.value = await _prefs
-  //       .makeThisOnPrefs<SparePartsListItem>(
-  //           _prefs.loadSparePartsFromPrefs, []);
-
-  //   sparePartsInDatabase.value = await getAndSave<SparePartsListItem>(
-  //       _repository.fetchSparePartsFromServer,
-  //       [],
-  //       parseSparePartListItems,
-  //       [],
-  //       _prefs.saveSparePartsToPrefs,
-  //       [],
-  //       sparePartsInDatabase.toList(),
-  //       "Getting Customers");
-  //   return sparePartsInDatabase.toList();
-  // }
-
-  // // RxList<InvoiceOffer> customerInvoiceOffers = RxList<InvoiceOffer>();
-
-  // // Future<List<InvoiceOffer>> getCustomerInvoicesOffers(int customerID) async {
-  // //   customerInvoiceOffers.value = await _prefs.makeThisOnPrefs<InvoiceOffer>(
-  // //       _prefs.loadCustomerInvoiceOffersFromPrefs, [customerID]);
-
-  // //   customerInvoiceOffers.value = await getAndSave<InvoiceOffer>(
-  // //       _repository.fetchCustomerInvoiceOfferFromServer,
-  // //       [customerID],
-  // //       parseInvoiceOffers,
-  // //       [],
-  // //       _prefs.saveCustomerInvoiceOffersToPrefs,
-  // //       [customerID],
-  // //       customerInvoiceOffers.toList(),
-  // //       "Getting Invoices Offers");
-
-  // //   return customerInvoiceOffers.toList();
-  // // }
-
-  // RxList<MoneyTransaction> customerMoneyTransactions =
-  //     RxList<MoneyTransaction>();
-
-  // Future<List<MoneyTransaction>> getCustomerMoneyTransaction(
-  //     int customerID) async {
-  //   customerMoneyTransactions.value = await _prefs
-  //       .makeThisOnPrefs<MoneyTransaction>(
-  //           _prefs.loadCustomerMoneyTransactionFromPrefs, [customerID]);
-
-  //   customerMoneyTransactions.value = await getAndSave<MoneyTransaction>(
-  //       _repository.fetchCustomerMoneyTransactionFromServer,
-  //       [customerID],
-  //       parseMoneyTransactions,
-  //       [],
-  //       _prefs.saveCustomerMoneyTransactionToPrefs,
-  //       [customerID],
-  //       customerMoneyTransactions.toList(),
-  //       "Getting Money Transactions");
-
-  //   return customerMoneyTransactions.toList();
-  // }
-
-  // RxList<CustomerOrdersListItem> customerOrders =
-  //     RxList<CustomerOrdersListItem>();
-
-  // Future<List<CustomerOrdersListItem>> getCustomerOrders(int customerID) async {
-  //   customerOrders.value = await _prefs.makeThisOnPrefs<CustomerOrdersListItem>(
-  //       _prefs.loadCustomerOrdersFromPrefs, [customerID]);
-
-  //   customerOrders.value = await getAndSave<CustomerOrdersListItem>(
-  //       _repository.fetchCustomerOrdersFromServer,
-  //       [customerID],
-  //       parseCustomerOrdersListItem,
-  //       [],
-  //       _prefs.saveCustomerOrdersToPrefs,
-  //       [customerID],
-  //       customerOrders.toList(),
-  //       "Getting Customer Orders");
-
-  //   return customerOrders.toList();
-  // }
-
-  // RxList<CustomerTransactionListItem> customerOrderPartAndMoneyTransactions =
-  //     RxList<CustomerTransactionListItem>();
-
-  // Future<List<CustomerTransactionListItem>> getCustomerPartAndMoneyTransaction(
-  //     int orderID) async {
-  //   customerOrderPartAndMoneyTransactions.value = await _prefs
-  //       .makeThisOnPrefs<CustomerTransactionListItem>(
-  //           _prefs.loadCustomerOrderPartAndMoneyTransactionFromPrefs,
-  //           [orderID]);
-
-  //   customerOrderPartAndMoneyTransactions.value =
-  //       await getAndSave<CustomerTransactionListItem>(
-  //           _repository.fetchCustomerOrderPartAndMoneyTransactionFromServer,
-  //           [orderID],
-  //           parseCustomerOrderPartAndMoneyTransactionsListItem,
-  //           [],
-  //           _prefs.saveCustomerOrderPartAndMoneyTransactionToPrefs,
-  //           [orderID],
-  //           customerOrderPartAndMoneyTransactions.toList(),
-  //           "Getting Customer Order Transactions");
-
-  //   return customerOrderPartAndMoneyTransactions.toList();
-  // }
-
-  // RxList<CustomerTransactionListItem> customerPartTransactions =
-  //     RxList<CustomerTransactionListItem>();
-
-  // Future<List<CustomerTransactionListItem>> getCustomerPartTransaction(
-  //     int customerID) async {
-  //   customerPartTransactions.value = await _prefs
-  //       .makeThisOnPrefs<CustomerTransactionListItem>(
-  //           _prefs.loadCustomerPartTransactionFromPrefs,
-  //           [customerID]);
-
-  //   customerPartTransactions.value =
-  //       await getAndSave<CustomerTransactionListItem>(
-  //           _repository.fetchCustomerPartTransactionFromServer,
-  //           [customerID],
-  //           parsePartTransactions,
-  //           [],
-  //           _prefs.saveCustomerPartTransactionToPrefs,
-  //           [customerID],
-  //           customerPartTransactions.toList(),
-  //           "Getting Parts Transactions");
-
-  //   return customerPartTransactions.toList();
-  // }
-
-  // Future<List<CustomerTransactionListItem>> getCustomerAllTransaction(
-  //     int customerID) async {
-  //   // await getCustomerInvoicesOffers(customerID);
-  //   await getCustomerMoneyTransaction(customerID);
-  //   await getCustomerPartTransaction(customerID);
-  //   updateCustomerMergedTransactions();
-
-  //   return mergedCustomerTransactions.toList();
-  // }
-
-  // RxList<CustomerTransactionListItem> mergedCustomerTransactions =
-  //     RxList<CustomerTransactionListItem>();
-  // void updateCustomerMergedTransactions() {
-  //   mergedCustomerTransactions.value = [
-  //     // ...customerInvoiceOffers,
-  //     ...customerMoneyTransactions,
-  //     ...customerPartTransactions
-  //   ];
-  // }
-
-  // // Future<void> updateInvoiceOffer(int customerID, String transactionID,
-  // //     String date, String amount, String details) async {
-  // //   await post(_repository.updatingInvoiceOfferInServer,
-  // //       [transactionID, date, amount, details], "Updating Invoice Offer");
-
-  // //   await getCustomerInvoicesOffers(customerID);
-  // //   updateCustomerMergedTransactions();
-  // //   getCustomers();
-  // // }
-
-  // Future<void> updateMoneyTransaction(
-  //     int customerID,
-  //     int? currentCustomerOrderID,
-  //     String transactionID,
-  //     String date,
-  //     String customerOrderID,
-  //     String amount,
-  //     String details,
-  //     String isIncoming) async {
-  //   await post(
-  //       _repository.updatingMoneyTransactionInServer,
-  //       [transactionID, date, customerOrderID, amount, details, isIncoming],
-  //       "Updating Money Transaction");
-
-  //   currentCustomerOrderID != null
-  //       ? await getCustomerPartAndMoneyTransaction(currentCustomerOrderID)
-  //       : null;
-  //   updateCustomerMergedTransactions();
-  //   getCustomers();
-  // }
-
-  // Future<void> updatePartTransaction(
-  //     int customerID,
-  //     int currentCustomerOrderID,
-  //     String transactionID,
-  //     String customerOrderID,
-  //     String date,
-  //     String quantity,
-  //     String price,
-  //     String details,
-  //     String factoryOrderID,
-  //     String isIncoming,
-  //     OrderDetailSource orderDetailSource) async {
-  //   await post(
-  //       _repository.updatingPartTransactionInServer,
-  //       [
-  //         transactionID,
-  //         customerOrderID,
-  //         date,
-  //         quantity,
-  //         price,
-  //         details,
-  //         factoryOrderID,
-  //         isIncoming,
-  //         orderDetailSource == OrderDetailSource.domestic? "domestic": "factory"
-  //       ],
-  //       "Updating Part Transaction");
-
-  //   // await getCustomerPartTransaction(customerID);
-  //   await getCustomerPartAndMoneyTransaction(currentCustomerOrderID);
-  //   updateCustomerMergedTransactions();
-  //   getCustomers();
-  // }
-
-  // Future<void> updateCustomerOrder(
-  //     int customerID,
-  //     String orderID,
-  //     String date,
-  //     String invoiceOffer,
-  //     String invoicePrice,
-  //     String invoiceAddition,
-  //     String details) async {
-  //   await post(
-  //       _repository.updatingCustomerOrderInServer,
-  //       [orderID, date, invoiceOffer, invoicePrice, invoiceAddition, details],
-  //       "Updating Customer Order");
-
-  //   await getCustomerOrders(customerID);
-  //   // await getCustomerPartAndMoneyTransaction(int.parse(customerOrderID));
-  //   getCustomers();
-  // }
-
-  // Future<void> addCustomerOrder(
-  //     String customerID,
-  //     String date,
-  //     String invoiceOffer,
-  //     String invoicePrice,
-  //     String invoiceAddition,
-  //     String details) async {
-  //   await post(
-  //       _repository.addCustomerOrderToServer,
-  //       [
-  //         customerID,
-  //         date,
-  //         invoiceOffer,
-  //         invoicePrice,
-  //         invoiceAddition,
-  //         details
-  //       ],
-  //       "Adding Customer Order");
-  //   await getCustomerOrders(int.parse(customerID));
-  //   // updateCustomerMergedTransactions();
-  //   getCustomers();
-  // }
-
-  // Future<void> deleteInvoiceOffer(int customerID, String transactionID) async {
-  //   await post(_repository.deleteInvoiceOfferFromServer, [transactionID],
-  //       "Deleting Invoice Offer");
-
-  //   await getCustomerPartAndMoneyTransaction(customerID);
-  //   await getCustomerOrders(customerID);
-  //   getCustomers();
-  // }
-
-  // Future<void> deleteMoneyTransaction(
-  //     int customerID, int customerOrderID, String transactionID) async {
-  //   await post(_repository.deleteMoneyTransactionFromServer, [transactionID],
-  //       "Delete Money Transaction");
-
-  //   await getCustomerPartAndMoneyTransaction(customerOrderID);
-  //   await getCustomerOrders(customerID);
-  //   getCustomers();
-  // }
-
-  // Future<void> deleteCustomerOrder(int customerID, String transactionID) async {
-  //   await post(_repository.deleteCustomerOrderFromServer, [transactionID],
-  //       "Delete Money Transaction");
-
-  //   await getCustomerOrders(customerID);
-  //   getCustomers();
-  // }
-
-  // Future<void> deletePartTransaction(
-  //     int customerID, int customerOrderID, String transactionID) async {
-  //   await post(_repository.deletePartTransactionFromServer, [transactionID],
-  //       "Delete Part Transaction");
-
-  //   await getCustomerPartAndMoneyTransaction(customerOrderID);
-  //   await getCustomerOrders(customerID);
-  //   getCustomers();
-  // }
-
-  // RxList<InventoryPartsOutsideEgypt> inventoryPartsOutsideEgypt =
-  //     RxList<InventoryPartsOutsideEgypt>();
-
-  // Future<List<InventoryPartsOutsideEgypt>>
-  //     getInventoryPartsOutsideEgypt() async {
-  //   inventoryPartsOutsideEgypt.value = await _prefs
-  //       .makeThisOnPrefs<InventoryPartsOutsideEgypt>(
-  //           _prefs.loadInventoryPartsOutsideEgyptFromPrefs, []);
-
-  //   inventoryPartsOutsideEgypt.value =
-  //       await getAndSave<InventoryPartsOutsideEgypt>(
-  //           _repository.fetchInventoryPartsOutsideEgyptFromServer,
-  //           [],
-  //           parseInventoryPartsOutsideEgypt,
-  //           [],
-  //           _prefs.saveInventoryPartsOutsideEgyptToPrefs,
-  //           [],
-  //           inventoryPartsOutsideEgypt.toList(),
-  //           "Getting Inventory");
-
-  //   return inventoryPartsOutsideEgypt.toList();
-  // }
-
-  // RxList<InventoryPartsDomestic> inventoryPartsDomestic =
-  //     RxList<InventoryPartsDomestic>();
-
-  // Future<List<InventoryPartsDomestic>> getInventoryPartsDomestic() async {
-  //   inventoryPartsDomestic.value = await _prefs
-  //       .makeThisOnPrefs<InventoryPartsDomestic>(
-  //           _prefs.loadInventoryPartsDomesticFromPrefs, []);
-
-  //   inventoryPartsDomestic.value = await getAndSave<InventoryPartsDomestic>(
-  //       _repository.fetchInventoryPartsDomesticFromServer,
-  //       [],
-  //       parseInventoryPartsDomestic,
-  //       [],
-  //       _prefs.saveInventoryPartsDomesticToPrefs,
-  //       [],
-  //       inventoryPartsDomestic.toList(),
-  //       "Getting Inventory");
-
-  //   return inventoryPartsDomestic.toList();
-  // }
-
-  // RxList<InventoryPartsListItem> allInventoryParts =
-  //     RxList<InventoryPartsListItem>();
-
-  // Future<List<InventoryPartsListItem>> getAllInventoryParts() async {
-  //   List<InventoryPartsOutsideEgypt> tempInventory1 =
-  //       await getInventoryPartsOutsideEgypt();
-  //   List<InventoryPartsDomestic> tempInventory2 =
-  //       await getInventoryPartsDomestic();
-  //   List<InventoryPartsListItem> allTogether = tempInventory1.toList();
-  //   allTogether.addAll(tempInventory2.toList());
-  //   return allTogether.toList();
-  // }
-
   RxList<Posts> posts =
       RxList<Posts>();
 
@@ -479,6 +115,48 @@ class GetData extends GetxController {
         "Getting Posts");
 
     return posts.toList();
+  }
+
+  RxList<Machines> machines =
+      RxList<Machines>();
+
+  Future<List<Machines>> getMachines() async {
+    machines.value = await _prefs
+        .makeThisOnPrefs<Machines>(
+            _prefs.loadMachinesFromPrefs, []);
+
+    machines.value = await getAndSave<Machines>(
+        _repository.fetchMachinesFromServer,
+        [],
+        parseMachinesListItems,
+        [],
+        _prefs.saveMachinesToPrefs,
+        [],
+        machines.toList(),
+        "Getting Machines");
+
+    return machines.toList();
+  }
+
+  RxList<SpareParts> spareParts =
+      RxList<SpareParts>();
+
+  Future<List<SpareParts>> getSpareParts() async {
+    spareParts.value = await _prefs
+        .makeThisOnPrefs<SpareParts>(
+            _prefs.loadSparePartsFromPrefs, []);
+
+    spareParts.value = await getAndSave<SpareParts>(
+        _repository.fetchSparePartsFromServer,
+        [],
+        parseSparePartsListItems,
+        [],
+        _prefs.saveSparePartsToPrefs,
+        [],
+        spareParts.toList(),
+        "Getting Spare Parts");
+
+    return spareParts.toList();
   }
 
   Future<void> addCustomerToNewsletter(String name, String email) async {
