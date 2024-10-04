@@ -8,26 +8,39 @@ import 'debugging_test.dart';
 
 class DataRepository {
   final serverHelper = ServerHelper();
+  static const String databasePath = "files/database/database/";
 
   Future<List<dynamic>> fetchPostsFromServer() async {
     return await serverHelper.fetchData(
-        'files/database/database/getPosts.php');
+        '${databasePath}getPosts.php');
   }
 
   Future<List<dynamic>> fetchMachinesFromServer() async {
     return await serverHelper.fetchData(
-        'files/database/database/getMachines.php');
+        '${databasePath}getMachines.php');
   }
 
   Future<List<dynamic>> fetchSparePartsFromServer() async {
     return await serverHelper.fetchData(
-        'files/database/database/getSpareParts.php');
+        '${databasePath}getSpareParts.php');
+  }
+
+  Future<List<dynamic>> fetchProductAttributesAndTypesFromServer() async {
+    return await serverHelper.fetchData(
+        '${databasePath}getProductAttributesAndTypes.php');
+  }
+
+  Future<List<dynamic>> fetchMachineSparePartsFromServer(int machineId) async {
+    return await serverHelper.fetchData(
+        '${databasePath}getMachineSpareParts.php', {
+          'machine_id': machineId.toString()
+        });
   }
 
   Future<void> addCustomerToNewsletterToServer(
       String name, String email, String errorString) async {
     return await serverHelper.postData(
-        'files/database/database/setNewsletterCustomer.php',
+        '${databasePath}setNewsletterCustomer.php',
         {'name': name, 'email': email},
         errorString);
   }
@@ -35,32 +48,32 @@ class DataRepository {
   Future<void> addCustomerInquiryToServer(
       String name, String email, String description, String errorString) async {
     return await serverHelper.postData(
-        'files/database/database/setCustomerInquiry.php',
+        '${databasePath}setCustomerInquiry.php',
         {'name': name, 'email': email, 'description': description},
         errorString);
   }
 
-  Future<void> updatingInvoiceOfferInServer(
-      String transactionID, String date, String amount, String details) async {
-    return await serverHelper.postData(
-        'the_old_website/database/updateCustomerInvoiceOffer.php',
-        {
-          'transaction_id': transactionID,
-          'new_date': date,
-          'new_amount': amount,
-          'new_details': details,
-        },
-        "Updating Invoice Offer");
-  }
+  // Future<void> updatingInvoiceOfferInServer(
+  //     String transactionID, String date, String amount, String details) async {
+  //   return await serverHelper.postData(
+  //       'the_old_website/database/updateCustomerInvoiceOffer.php',
+  //       {
+  //         'transaction_id': transactionID,
+  //         'new_date': date,
+  //         'new_amount': amount,
+  //         'new_details': details,
+  //       },
+  //       "Updating Invoice Offer");
+  // }
 
-  Future<void> deleteInvoiceOfferFromServer(String transactionID) async {
-    return await serverHelper.postData(
-        'the_old_website/database/deleteInvoiceOffer.php',
-        {
-          'transactions_id': transactionID,
-        },
-        "Deleting Invoice Offer");
-  }
+  // Future<void> deleteInvoiceOfferFromServer(String transactionID) async {
+  //   return await serverHelper.postData(
+  //       'the_old_website/database/deleteInvoiceOffer.php',
+  //       {
+  //         'transactions_id': transactionID,
+  //       },
+  //       "Deleting Invoice Offer");
+  // }
 }
 
 class ServerHelper {

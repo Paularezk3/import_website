@@ -4,11 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/utils/app_colors.dart';
 import '../../core/utils/app_constants.dart';
 
-class ResponsiveAppBar extends SliverPersistentHeaderDelegate {
+class MobileAppBar extends SliverPersistentHeaderDelegate {
   final bool isDrawerOpen;
   final VoidCallback onMenuPressed;
 
-  ResponsiveAppBar({required this.isDrawerOpen, required this.onMenuPressed});
+  MobileAppBar({required this.isDrawerOpen, required this.onMenuPressed});
 
   @override
   Widget build(

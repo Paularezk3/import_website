@@ -59,17 +59,17 @@ class OurProductsSection extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          myController.goToMachineDetailsPage(myController.machines[index].machineId);
+                          myController.goToMachineDetailsPage(myController.machines[index]);
                         },
                         child: HoverCard(
-                          onPressed: () => myController.goToMachineDetailsPage(myController.machines[index].machineId),
+                          onPressed: () => myController.goToMachineDetailsPage(myController.machines[index]),
                           child: Column(
                             children: [
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: buildImage(
-                                    myController.machines[index].photoPath,
+                                    myController.machines[index].photoName,
                                     myController.machinesPhotos,
                                   ),
                                 ),
@@ -80,9 +80,9 @@ class OurProductsSection extends StatelessWidget {
                                   TranslationService.currentLang.value ==
                                           const Locale("ar", "EG")
                                       ? myController
-                                          .machines[index].machineNameAr
+                                          .machines[index].nameAr
                                       : myController
-                                          .machines[index].machineNameEn,
+                                          .machines[index].nameEn,
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!

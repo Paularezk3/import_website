@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
-import 'package:import_website/core/database_classes/machines.dart';
 import 'package:import_website/core/database_classes/posts.dart';
-import 'package:import_website/core/database_classes/spare_parts.dart';
+import 'package:import_website/core/database_classes/product_attributes_and_types.dart';
 
+import '../database_classes/product_details.dart';
 import 'data_repository.dart';
 import 'debugging_test.dart';
 import 'exceptions_handling.dart';
@@ -20,8 +20,8 @@ class GetData extends GetxController {
   void handleError(String h, Object e, StackTrace s) {
     DebuggingTest.printSomething(e.toString());
     ExceptionsHandling.logExceptionToServer(e, s, h);
-    ShowSnackBar.showGetSnackbarError("Error",
-        "An error occurred while $h! ${e.toString()}");
+    ShowSnackBar.showGetSnackbarError(
+        "Error", "An error occurred while $h! ${e.toString()}");
   }
 
   // void handleErrors(String h, Object e, Function function,
@@ -96,13 +96,11 @@ class GetData extends GetxController {
     }
   }
 
-  RxList<Posts> posts =
-      RxList<Posts>();
+  RxList<Posts> posts = RxList<Posts>();
 
   Future<List<Posts>> getPosts() async {
-    posts.value = await _prefs
-        .makeThisOnPrefs<Posts>(
-            _prefs.loadPostsFromPrefs, []);
+    posts.value =
+        await _prefs.makeThisOnPrefs<Posts>(_prefs.loadPostsFromPrefs, []);
 
     posts.value = await getAndSave<Posts>(
         _repository.fetchPostsFromServer,
@@ -117,13 +115,11 @@ class GetData extends GetxController {
     return posts.toList();
   }
 
-  RxList<Machines> machines =
-      RxList<Machines>();
+  RxList<Machines> machines = RxList<Machines>();
 
   Future<List<Machines>> getMachines() async {
     machines.value = await _prefs
-        .makeThisOnPrefs<Machines>(
-            _prefs.loadMachinesFromPrefs, []);
+        .makeThisOnPrefs<Machines>(_prefs.loadMachinesFromPrefs, []);
 
     machines.value = await getAndSave<Machines>(
         _repository.fetchMachinesFromServer,
@@ -138,13 +134,11 @@ class GetData extends GetxController {
     return machines.toList();
   }
 
-  RxList<SpareParts> spareParts =
-      RxList<SpareParts>();
+  RxList<SpareParts> spareParts = RxList<SpareParts>();
 
   Future<List<SpareParts>> getSpareParts() async {
     spareParts.value = await _prefs
-        .makeThisOnPrefs<SpareParts>(
-            _prefs.loadSparePartsFromPrefs, []);
+        .makeThisOnPrefs<SpareParts>(_prefs.loadSparePartsFromPrefs, []);
 
     spareParts.value = await getAndSave<SpareParts>(
         _repository.fetchSparePartsFromServer,
@@ -159,14 +153,60 @@ class GetData extends GetxController {
     return spareParts.toList();
   }
 
+  RxList<ProductAttributesAndTypes> productAttributesAndTypes =
+      RxList<ProductAttributesAndTypes>();
+
+  Future<List<ProductAttributesAndTypes>> getProductAttributesAndTypes() async {
+    productAttributesAndTypes.value = await _prefs
+        .makeThisOnPrefs<ProductAttributesAndTypes>(
+            _prefs.loadProductAttributesAndTypesFromPrefs, []);
+
+    productAttributesAndTypes.value =
+        await getAndSave<ProductAttributesAndTypes>(
+            _repository.fetchProductAttributesAndTypesFromServer,
+            [],
+            parseProductAttributesAndTypesListItems,
+            [],
+            _prefs.saveProductAttributesAndTypesToPrefs,
+            [],
+            productAttributesAndTypes.toList(),
+            "Getting Product Attributes And Types");
+
+    return productAttributesAndTypes.toList();
+  }
+
+  RxList<SpareParts> machineSpareParts =
+      RxList<SpareParts>();
+
+  Future<List<SpareParts>> getMachineSpareParts(
+      int machineId) async {
+    machineSpareParts.value = await _prefs
+        .makeThisOnPrefs<SpareParts>(
+            _prefs.loadMachineSparePartsFromPrefs, [machineId]);
+
+    machineSpareParts.value =
+        await getAndSave<SpareParts>(
+            _repository.fetchMachineSparePartsFromServer,
+            [machineId],
+            parseSparePartsListItems,
+            [],
+            _prefs.saveMachineSparePartsToPrefs,
+            [machineId],
+            machineSpareParts.toList(),
+            "Getting Machine Spare Parts");
+
+    return machineSpareParts.toList();
+  }
+
   Future<void> addCustomerToNewsletter(String name, String email) async {
     await post(_repository.addCustomerToNewsletterToServer, [name, email],
         "Adding Customer to Newsletter");
   }
 
-  Future<void> addCustomerInquiry(String name, String email, String description) async {
-    await post(_repository.addCustomerInquiryToServer, [name, email, description],
-        "Adding Customer Inquiry");
+  Future<void> addCustomerInquiry(
+      String name, String email, String description) async {
+    await post(_repository.addCustomerInquiryToServer,
+        [name, email, description], "Adding Customer Inquiry");
   }
 
   // Future<void> addSparePart(

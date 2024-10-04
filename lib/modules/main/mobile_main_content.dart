@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:import_website/core/utils/app_colors.dart';
 import 'package:import_website/modules/home/views/mobile_home_view.dart';
+import 'package:import_website/modules/product_details/machine_details_page.dart';
 import 'package:import_website/widgets/defaults/default_loading_widget.dart';
 import '../../core/utils/translation/translation_service.dart';
+import '../../routes/pages_names.dart';
 import '../contact_us/views/mobile_contact_us_view.dart';
 import '../home/controller/home_controller.dart';
 import '../services/views/mobile_services_view.dart';
 import 'controllers/main_home_controller.dart';
-import 'responsive_appbar.dart';
+import 'mobile_appbar.dart';
 
 class MobileMainContent extends StatefulWidget {
-  const MobileMainContent({super.key});
+  final WebsiteView page;
+  const MobileMainContent({required this.page, super.key});
 
   @override
   State<MobileMainContent> createState() => _MobileMainContentState();
@@ -107,6 +110,7 @@ class _MobileMainContentState extends State<MobileMainContent>
 
   @override
   Widget build(BuildContext context) {
+    mainHomeController.switchWebsiteViewWithoutRebuild(widget.page);
     String currentLanguageCode =
         Get.locale?.languageCode ?? 'en'; // Default to 'en' if null
     return Scaffold(
@@ -118,7 +122,7 @@ class _MobileMainContentState extends State<MobileMainContent>
             slivers: [
               SliverPersistentHeader(
                 pinned: true,
-                delegate: ResponsiveAppBar(
+                delegate: MobileAppBar(
                   isDrawerOpen: isDrawerOpen,
                   onMenuPressed: _toggleDrawer,
                 ),
@@ -144,6 +148,9 @@ class _MobileMainContentState extends State<MobileMainContent>
                 } else if (mainHomeController.currentPage.value ==
                     WebsiteView.services) {
                   return const MobileServicesView();
+                } else if (mainHomeController.currentPage.value ==
+                    WebsiteView.machineDetails) {
+                  return const MachineDetailsPage();
                 } else {
                   return Container();
                 }
@@ -171,8 +178,7 @@ class _MobileMainContentState extends State<MobileMainContent>
                             Get.find<MainHomeController>().currentPage.value ==
                                 WebsiteView.home,
                         onTap: () {
-                          Get.find<MainHomeController>()
-                              .switchWebsiteView(WebsiteView.home);
+                          Get.toNamed(PagesNames.home);
                           _toggleDrawer();
                         },
                       ),
@@ -184,8 +190,7 @@ class _MobileMainContentState extends State<MobileMainContent>
                             Get.find<MainHomeController>().currentPage.value ==
                                 WebsiteView.services,
                         onTap: () {
-                          Get.find<MainHomeController>()
-                              .switchWebsiteView(WebsiteView.services);
+                          Get.toNamed(PagesNames.services);
                           _toggleDrawer();
                         },
                       ),
@@ -197,8 +202,7 @@ class _MobileMainContentState extends State<MobileMainContent>
                             Get.find<MainHomeController>().currentPage.value ==
                                 WebsiteView.about,
                         onTap: () {
-                          Get.find<MainHomeController>()
-                              .switchWebsiteView(WebsiteView.about);
+                          Get.toNamed(PagesNames.aboutUs);
                           _toggleDrawer();
                         },
                       ),
@@ -209,8 +213,7 @@ class _MobileMainContentState extends State<MobileMainContent>
                                   .currentPage
                                   .value ==
                               WebsiteView.contactUs, onTap: () {
-                        Get.find<MainHomeController>()
-                            .switchWebsiteView(WebsiteView.contactUs);
+                          Get.toNamed(PagesNames.contactUs);
                         _toggleDrawer();
                       }),
                       // Arabic ListTile

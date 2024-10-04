@@ -8,11 +8,12 @@ import '../core/services/api_urls.dart';
 import '../core/utils/app_colors.dart';
 
 /// Updated fetchImage method to accept a file name (${ApiUrls.baseUrl}files/homepage/photos/get_this.php?path=$fileName)
-Future<http.Response> fetchImage(String fileName) async {
-
-  final String url = Get.find<MainHomeController>().currentPage.value == WebsiteView.home?
-      '${ApiUrls.baseUrl}files/homepage/photos/get_this.php?path=$fileName':
-      '${ApiUrls.baseUrl}files/services_page/photos/get_this.php?path=$fileName';
+Future<http.Response> fetchImage(String fileName, String? filePath) async {
+  final String url = filePath != null
+      ? '${ApiUrls.baseUrl}${filePath}get_this.php?path=$fileName'
+      : (Get.find<MainHomeController>().currentPage.value == WebsiteView.home
+          ? '${ApiUrls.baseUrl}files/homepage/photos/get_this.php?path=$fileName'
+          : '${ApiUrls.baseUrl}files/services_page/photos/get_this.php?path=$fileName');
 
   final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
@@ -22,18 +23,24 @@ Future<http.Response> fetchImage(String fileName) async {
   }
 }
 
-Widget buildImage(String fileName, List<Map<String, dynamic>> photos,
-    {double? height = 400, bool roundedCorners = true}) {
-  final imageEntry = photos.firstWhere(
-    (photo) => photo['fileName'] == fileName,
-    orElse: () => {'base64Content': null}, // Provide a valid map entry
-  );
+Widget buildImage(String fileName, List<Map<String, dynamic>>? photos,
+    {
+    double? height = 400,
+    bool roundedCorners = true,
+    String? filePath}) {
 
-  final imageBytes = imageEntry['base64Content'];
+      var imageBytes;
+  if (photos != null) {
+    final imageEntry = photos.firstWhere(
+      (photo) => photo['fileName'] == fileName,
+      orElse: () => {'base64Content': null}, // Provide a valid map entry
+    );
 
+    imageBytes = imageEntry['base64Content'];
+  }
   if (imageBytes == null) {
     return FutureBuilder<http.Response>(
-      future: fetchImage(fileName),
+      future: fetchImage(fileName, filePath),
       builder: (BuildContext context, AsyncSnapshot<http.Response> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // Replace CircularProgressIndicator with Shimmer effect
@@ -87,12 +94,15 @@ Widget buildImage(String fileName, List<Map<String, dynamic>> photos,
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
-        borderRadius: roundedCorners ? BorderRadius.circular(12.0) : BorderRadius.zero,
+        borderRadius:
+            roundedCorners ? BorderRadius.circular(12.0) : BorderRadius.zero,
         child: Image.memory(
           imageBytes,
-          fit: BoxFit.cover, // Ensure image covers the widget without distortion
+          fit:
+              BoxFit.cover, // Ensure image covers the widget without distortion
           width: double.infinity, // Stretch to fill available width
-          errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+          errorBuilder:
+              (BuildContext context, Object error, StackTrace? stackTrace) {
             return const Center(
               child: Text('Failed to display image'),
             );

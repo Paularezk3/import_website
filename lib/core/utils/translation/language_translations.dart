@@ -63,7 +63,8 @@ const Map<String, String> enUS = {
   "Expert Engineering Support": "Expert Engineering Support",
   "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.":
       "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.",
-      "Machines": "Machines"
+      "Machines": "Machines",
+      "Machine Spare Parts":"Machine Spare Parts"
 };
 
 const Map<String, String> arEG = {
@@ -131,5 +132,6 @@ const Map<String, String> arEG = {
   "Expert Engineering Support": "دعم هندسي متخصص",
   "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.":
       "يضمن مؤسسنا، رزق أيوب، التحسين المستمر والابتكار في آلاتنا.",
-      "Machines": "الماكينات"
+      "Machines": "الماكينات",
+      "Machine Spare Parts":"قطع غيار الماكينة"
 };

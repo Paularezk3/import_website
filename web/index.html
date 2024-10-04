@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
     <base href="$FLUTTER_BASE_HREF" />
 
     <meta charset="UTF-8" />
@@ -35,12 +22,7 @@
     <link rel="icon" type="image/png" href="favicon.png" />
 
     <title>import_website</title>
-    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x/firebase-storage.js"></script> -->
-    
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9cX2I8efWiAW41bXgOrx47ZgyjJ4JGgo"></script>
 
     <script>
@@ -58,10 +40,21 @@
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
     </script>
-    <!-- <link rel="manifest" href="manifest.json"> -->
   </head>
-  <body></body>
+
+  <body>
+    <!-- Splash Screen -->
+    <div id="splash" style="position: fixed; width: 100%; height: 100%; background-color: black; display: flex; justify-content: center; align-items: center; z-index: 9999;">
+      <p>Loading...</p>
+    </div>
+
     <script src="main.dart.js" type="application/javascript"></script>
-    <!-- <script src="flutter_bootstrap.js" async></script> -->
+
+    <script>
+      // Hide splash screen after the Flutter app is fully loaded
+      window.addEventListener('load', function() {
+        document.getElementById('splash').style.display = 'none';
+      });
+    </script>
   </body>
 </html>

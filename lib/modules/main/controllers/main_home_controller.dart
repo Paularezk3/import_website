@@ -8,13 +8,17 @@ import '../../../core/services/api_urls.dart';
 import '../../../core/services/debugging_test.dart';
 import '../../../core/services/get_data.dart';
 
-enum WebsiteView { home, about, contactUs, services }
+enum WebsiteView { home, about, contactUs, services, machineDetails }
 
 class MainHomeController extends GetxController {
+  
   Rx<WebsiteView> currentPage = WebsiteView.home.obs;
   RxBool isSubmitted = false.obs;
 
 
+  void switchWebsiteViewWithoutRebuild(WebsiteView newValue) {
+    currentPage = newValue.obs;
+  }
   void switchWebsiteView(WebsiteView newValue) {
     currentPage.value = newValue;
     update();

@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
-import 'package:import_website/core/database_classes/machines.dart';
-import 'package:import_website/core/database_classes/spare_parts.dart';
 import 'package:import_website/core/services/get_data.dart';
-import 'package:import_website/modules/product_details/product_details_page.dart';
 
+import '../../../core/database_classes/product_details.dart';
 import '../../main/controllers/main_home_controller.dart';
 
 class ServicesController extends GetxController {
@@ -36,16 +34,9 @@ class ServicesController extends GetxController {
     spareParts.value = await getData.getSpareParts();
     isLoadingSpareParts.value = false;
 
-    for (var i = 0; i < 1; i++) {
-      String newString = machines[0]
-          .photoPath
-          .replaceFirst(RegExp(r'[^/]+$'), 'get_these.php?path=/');
-      machinesPhotos.value =
-          await mainController.fetchDataWithTimeout(newString) ?? [];
-    }
-    for (var m in machines) {
-      m.photoPath = m.photoPath.split('/').last;
-    }
+    String newString = '${machines[0].photoPath}get_these.php?path=/';
+    machinesPhotos.value =
+        await mainController.fetchDataWithTimeout(newString, timeoutSeconds: 5) ?? [];
 
     pagePhotos.value = await mainController.fetchPhotos(
           'files/services_page/photos/get_these.php?path=/',
@@ -54,7 +45,7 @@ class ServicesController extends GetxController {
     isLoading1.value = false;
   }
 
-  void goToMachineDetailsPage(int machineId) {
-    Get.toNamed("/machine/$machineId");
+  void goToMachineDetailsPage(Machines machine) {
+    Get.toNamed("/machine/${machine.id}", arguments: {"machine": machine});
   }
 }
