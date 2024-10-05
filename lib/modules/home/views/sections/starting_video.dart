@@ -2,11 +2,12 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:import_website/modules/home/controller/home_controller.dart';
 
 import '../../../../core/utils/app_colors.dart';
 
 class StartingVideo extends StatelessWidget {
-  final myController;
+  final HomeController myController;
   const StartingVideo({required this.myController, super.key});
 
   @override
@@ -78,6 +79,7 @@ class StartingVideo extends StatelessWidget {
                           OutlinedButton(
                             onPressed: () {
                               // Handle contact button press
+                              myController.goToContactUsPage();
                             },
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(
@@ -94,6 +96,7 @@ class StartingVideo extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               // Handle learn more button press
+                              myController.goToOurProductsPage();
                             },
                             child: Text(
                               'Learn More'.tr,

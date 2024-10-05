@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:get/get.dart';
+import 'package:import_website/routes/pages_names.dart';
 import 'package:video_player/video_player.dart';
 import '../../../core/services/api_urls.dart';
 import '../../main/controllers/main_home_controller.dart';
@@ -81,5 +82,13 @@ class HomeController extends GetxController {
 
   void changeIsMobile(bool newValue) {
     isMobile.value = newValue;
+  }
+
+  void goToContactUsPage(){
+    Get.toNamed(PagesNames.contactUs);
+  }
+
+  void goToOurProductsPage() {
+    Get.toNamed(PagesNames.ourProducts);
   }
 }

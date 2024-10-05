@@ -37,10 +37,12 @@ class ServicesController extends GetxController {
     String newString = '${machines[0].photoPath}get_these.php?path=/';
     machinesPhotos.value =
         await mainController.fetchDataWithTimeout(newString, timeoutSeconds: 5) ?? [];
+    isLoadingMachinesPhotos.value = false;
 
     newString = '${spareParts[0].photoPath}get_these.php?path=/';
     sparePartsPhotos.value =
         await mainController.fetchDataWithTimeout(newString, timeoutSeconds: 5) ?? [];
+    isLoadingSparePartsPhotos.value = false;
 
     pagePhotos.value = await mainController.fetchPhotos(
           'files/services_page/photos/get_these.php?path=/',

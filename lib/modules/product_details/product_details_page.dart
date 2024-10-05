@@ -69,17 +69,20 @@ class ProductDetailsPage extends StatelessWidget {
                       ),
                 ),
                 const SizedBox(height: 30),
-                Text(
-                  TranslationService.currentLang.value ==
-                          const Locale("ar", "EG")
-                      ? myController.machine.value?.descriptionAr ??
-                          myController.sparePart.value!.descriptionAr
-                      : myController.machine.value?.descriptionEn ??
-                          myController.sparePart.value!.descriptionEn,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.grey[700],
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    TranslationService.currentLang.value ==
+                            const Locale("ar", "EG")
+                        ? myController.machine.value?.descriptionAr ??
+                            myController.sparePart.value!.descriptionAr
+                        : myController.machine.value?.descriptionEn ??
+                            myController.sparePart.value!.descriptionEn,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.grey[700],
+                        ),
+                  ),
                 ),
                 const SizedBox(height: 40),
 

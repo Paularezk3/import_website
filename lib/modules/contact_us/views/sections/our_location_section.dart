@@ -21,8 +21,8 @@ class OurLocationSection extends StatelessWidget {
 
     // Function to open Google Maps when the marker is clicked
     Future<void> openGoogleMaps() async {
-      final String googleMapsUrl =
-          "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}";
+      const String googleMapsUrl =
+          "https://maps.app.goo.gl/AyLSZcTcv8stnnpX7";
       if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
         await launchUrl(Uri.parse(googleMapsUrl));
       } else {
@@ -92,7 +92,7 @@ class OurLocationSection extends StatelessWidget {
                 if (isMobile) ...[
                   const SizedBox(height: 15),
                   googleMap,
-                  const SizedBox(height: 200), // Dummy space to make scrollable
+                  const SizedBox(height: 50), // Dummy space to make scrollable
                 ]
               ],
             ),
@@ -107,7 +107,7 @@ class OurLocationSection extends StatelessWidget {
   }
 
   // For Web: Use the google_maps package
-  Widget _buildWebMap() {
+    Widget _buildWebMap() {
     // Create map options for the Google Map
     final mapOptions = gmaps.MapOptions()
       ..zoom = 14
@@ -121,20 +121,30 @@ class OurLocationSection extends StatelessWidget {
     // Create the Google Map inside the div element
     final map = gmaps.Map(mapDiv as HTMLElement, mapOptions);
 
-    // Add a red marker (pin) to the map at the center location
-    gmaps.Marker(gmaps.MarkerOptions()
-      ..position = gmaps.LatLng(30.2364, 31.3593) // Same as the map center
-      ..map = map
-      ..title = 'My Location'
-      ..icon = null); // Default red pin
+    // Check if AdvancedMarkerElement is available before using it
+    try {
+      final markerOptions = gmaps.AdvancedMarkerElementOptions()
+        ..position = gmaps.LatLng(30.2364, 31.3593) // Same as the map center
+        ..title = 'My Location';
+
+      // Use AdvancedMarkerElement if available
+      final advancedMarker = gmaps.AdvancedMarkerElement(markerOptions);
+      advancedMarker.map = map;
+    } catch (e) {
+      // Fallback to Marker if AdvancedMarkerElement is not available
+      final markerOptions = gmaps.MarkerOptions()
+        ..position = gmaps.LatLng(30.2364, 31.3593) // Same as the map center
+        ..title = 'My Location';
+
+      final marker = gmaps.Marker(markerOptions);
+      marker.map = map;
+    }
 
     // Add a click listener to the map to open Google Maps in a new tab with the clicked location
     map.onClick.listen((gmaps.MapMouseEventOrIconMouseEvent e) {
       final clickedLatLng = e.latLng;
       if (clickedLatLng != null) {
-        final lat = clickedLatLng.lat;
-        final lng = clickedLatLng.lng;
-        final googleMapsUrl = 'https://www.google.com/maps?q=$lat,$lng';
+        const googleMapsUrl = 'https://maps.app.goo.gl/AyLSZcTcv8stnnpX7';
         _launchURL(googleMapsUrl); // Open the URL in a new tab
       }
     });
@@ -147,6 +157,7 @@ class OurLocationSection extends StatelessWidget {
     // Return the HtmlElementView widget to display the map in the Flutter app
     return const HtmlElementView(viewType: 'map-element');
   }
+
 
   void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {

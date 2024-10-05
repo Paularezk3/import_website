@@ -234,6 +234,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10,),
               DefaultTextFormField(
                 controller: emailTextController,
                 hintText: "Enter your email".tr,
@@ -247,6 +248,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10,),
               DefaultSubmitButton(
                   text: "Submit".tr,
                   onPressed: () {

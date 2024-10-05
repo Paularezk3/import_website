@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:import_website/core/utils/app_breakpoints.dart';
 import 'package:import_website/core/utils/app_colors.dart';
 import 'package:import_website/core/utils/app_constants.dart';
 import 'package:get/get.dart';
@@ -42,7 +43,7 @@ class _ClickableLogoState extends State<ClickableLogo> {
                 fit: BoxFit.contain,
               ),
               const SizedBox(width: 12.0),
-              if (MediaQuery.of(context).size.width > 700)
+              if (MediaQuery.of(context).size.width > 750 || MediaQuery.of(context).size.width < AppBreakpoints.mobileMaxWidth)
                 Text(
                   AppConstants.companyShortName.tr,
                   style: GoogleFonts.lato(

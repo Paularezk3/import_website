@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import 'package:import_website/widgets/defaults/clickable_logo.dart';
 import '../../core/utils/app_colors.dart';
-import '../../core/utils/app_constants.dart';
 
 class MobileAppBar extends SliverPersistentHeaderDelegate {
   final bool isDrawerOpen;
@@ -29,26 +27,7 @@ class MobileAppBar extends SliverPersistentHeaderDelegate {
         ),
         onPressed: onMenuPressed,
       ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            AppConstants.mainCompanyLogo,
-            height: 30,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(width: 12.0),
-          Text(
-            AppConstants.companyShortName,
-            style: GoogleFonts.lato(
-              textStyle: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.notBlackAndWhiteColor(context)),
-            ),
-          ),
-        ],
-      ),
+      title: ClickableLogo(),
       centerTitle: true,
     );
   }

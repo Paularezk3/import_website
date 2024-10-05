@@ -16,7 +16,7 @@ class SparePartsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (myController.isLoading1.value) {
+      if (myController.isLoadingSpareParts.value) {
         return const DefaultLoadingWidget();
       } else {
         return Column(
@@ -37,84 +37,93 @@ class SparePartsSection extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: SingleChildScrollView(
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    // Calculate crossAxisCount dynamically based on screen size
-                    int crossAxisCount = isMobile
-                        ? 2
-                        : constraints.maxWidth > 700
-                            ? (constraints.maxWidth > 1000 ? 4 : 3)
-                            : 2;
+            LayoutBuilder(
+              builder: (context, constraints) {
+                // Calculate crossAxisCount dynamically based on screen size
+                int crossAxisCount = isMobile
+                    ? 2
+                    : constraints.maxWidth > 700
+                        ? (constraints.maxWidth > 1000 ? 4 : 3)
+                        : 2;
 
-                    // Calculate the number of rows needed
-                    int rowCount = (myController.spareParts.length / crossAxisCount).ceil();
-
-                    // Calculate height dynamically based on row count
-                    double rowHeight = isMobile ? 150 : 300; // Height of one row
-                    double gridHeight = rowHeight * rowCount + (rowCount - 1) * 10; // Include mainAxisSpacing
-
-                    return SizedBox(
-                      height: gridHeight,
-                      child: GridView.builder(
-                        itemCount: myController.spareParts.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: crossAxisCount,
-                          crossAxisSpacing: 10.0,
-                          mainAxisSpacing: 10.0,
-                        ),
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              myController.goToSparePartDetailsPage(myController.spareParts[index]);
-                            },
-                            child: HoverCard(
-                              onPressed: () => myController.goToSparePartDetailsPage(myController.spareParts[index]),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: buildImage(
-                                        myController.spareParts[index].photoName,
-                                        myController.sparePartsPhotos,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15.0),
-                                  Obx(() {
-                                    return Text(
-                                      TranslationService.currentLang.value == const Locale("ar", "EG")
-                                          ? myController.spareParts[index].nameAr
-                                          : myController.spareParts[index].nameEn,
-                                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                                            color: AppColors.notBlackAndWhiteColor(context),
-                                          ),
-                                    );
-                                  }),
-                                  const SizedBox(height: 5.0),
-                                  Obx(() {
-                                    return Text(
-                                      TranslationService.currentLang.value == const Locale("ar", "EG")
-                                          ? myController.spareParts[index].descriptionAr
-                                          : myController.spareParts[index].descriptionEn,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    );
-                                  }),
-                                ],
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: myController.spareParts.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                  ),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        myController.goToSparePartDetailsPage(
+                            myController.spareParts[index]);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: HoverCard(
+                          onPressed: () => myController.goToSparePartDetailsPage(
+                              myController.spareParts[index]),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child:
+                                      myController.isLoadingSparePartsPhotos.value
+                                          ? buildImage(
+                                              myController
+                                                  .spareParts[index].photoName,
+                                              [],
+                                              filePath: myController
+                                                  .spareParts[index].photoPath)
+                                          : buildImage(
+                                              myController
+                                                  .spareParts[index].photoName,
+                                              myController.sparePartsPhotos,
+                                            ),
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                              const SizedBox(height: 15.0),
+                              Obx(() {
+                                return Text(
+                                  TranslationService.currentLang.value ==
+                                          const Locale("ar", "EG")
+                                      ? myController.spareParts[index].nameAr
+                                      : myController.spareParts[index].nameEn,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: AppColors.notBlackAndWhiteColor(
+                                            context),
+                                      ),
+                                );
+                              }),
+                              const SizedBox(height: 5.0),
+                              Obx(() {
+                                return Text(
+                                  TranslationService.currentLang.value ==
+                                          const Locale("ar", "EG")
+                                      ? myController
+                                          .spareParts[index].descriptionAr
+                                      : myController
+                                          .spareParts[index].descriptionEn,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   },
-                ),
-              ),
+                );
+              },
             ),
           ],
         );
@@ -155,7 +164,8 @@ class _HoverCardState extends State<HoverCard> {
                   child: ElevatedButton(
                     onPressed: widget.onPressed,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Set the background color here
+                      backgroundColor:
+                          Colors.blue, // Set the background color here
                     ),
                     child: Text(
                       "View Details",
