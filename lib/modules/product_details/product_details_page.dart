@@ -15,13 +15,13 @@ class ProductDetailsPage extends StatelessWidget {
   final ProductType productType;
   final int? productId;
   final Machines? machine;
-  final SpareParts? spareParts;
+  final SpareParts? sparePart;
   const ProductDetailsPage(
       {required this.productType,
       super.key,
       this.productId,
       this.machine,
-      this.spareParts});
+      this.sparePart});
 
   @override
   Widget build(BuildContext context) {
@@ -30,76 +30,95 @@ class ProductDetailsPage extends StatelessWidget {
         productType: productType,
         productId: productId,
         machineValue: machine,
-        sparePartValue: spareParts,
+        sparePartValue: sparePart,
       ),
+      dispose: (_) => Get.delete<
+          ProductDetailsController>(), // Dispose controller after use
       builder: (myController) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (myController.productType != productType ||
+              myController.productId != productId ||
+              myController.machine.value != machine ||
+              myController.sparePart.value != sparePart) {
+            myController.productType = productType;
+            myController.productId = productId;
+            myController.machine.value = machine;
+            myController.sparePart.value = sparePart;
+            myController.initialize();
+          }
+        });
         return Obx(() {
           if (myController.isLoading1.value) {
             return const ShimmerPage();
           } else {
             return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 40),
-                  Text(
-                    TranslationService.currentLang.value ==
-                            const Locale("ar", "EG")
-                        ? myController.machine.value!.nameAr
-                        : myController.machine.value!.nameEn,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          color: AppColors.notBlackAndWhiteColor(context),
-                        ),
-                  ),
-                  const SizedBox(height: 30),
-                  Text(
-                    TranslationService.currentLang.value ==
-                            const Locale("ar", "EG")
-                        ? myController.machine.value!.descriptionAr
-                        : myController.machine.value!.descriptionEn,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: Colors.grey[700],
-                        ),
-                  ),
-                  const SizedBox(height: 40),
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 40),
+                Text(
+                  TranslationService.currentLang.value ==
+                          const Locale("ar", "EG")
+                      ? myController.machine.value?.nameAr ??
+                          myController.sparePart.value!.nameAr
+                      : myController.machine.value?.nameEn ??
+                          myController.sparePart.value!.nameEn,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                        color: AppColors.notBlackAndWhiteColor(context),
+                      ),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  TranslationService.currentLang.value ==
+                          const Locale("ar", "EG")
+                      ? myController.machine.value?.descriptionAr ??
+                          myController.sparePart.value!.descriptionAr
+                      : myController.machine.value?.descriptionEn ??
+                          myController.sparePart.value!.descriptionEn,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.grey[700],
+                      ),
+                ),
+                const SizedBox(height: 40),
 
-                  // Ensuring the image takes space properly
-                  buildImage(
-                    myController.machine.value!.photoName,
-                    null,
-                    filePath: myController.machine.value!.photoPath,
-                  ),
-                  const SizedBox(height: 40),
+                // Ensuring the image takes space properly
+                buildImage(
+                  myController.machine.value?.photoName ??
+                      myController.sparePart.value!.photoName,
+                  null,
+                  filePath: myController.machine.value?.photoPath ??
+                      myController.sparePart.value!.photoPath,
+                ),
+                const SizedBox(height: 40),
 
-                  // Glassy styled table for attributes
-                  Obx(
-                    () {
-                      if (myController.isLoadingAttributes.value) {
-                        return const DefaultLoadingWidget();
-                      } else {
-                        return Row(
-                          children: [
-                            const Spacer(
-                              flex: 1,
-                            ),
-                            Flexible(
-                              flex: 5,
-                              child: _buildGlassyAttributesTable(
-                                  myController, context),
-                            ),
-                            const Spacer(
-                              flex: 1,
-                            ),
-                          ],
-                        );
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 40),
-                  if(myController.productType == ProductType.machine)
-                  ...[
+                // Glassy styled table for attributes
+                Obx(
+                  () {
+                    if (myController.isLoadingAttributes.value) {
+                      return const DefaultLoadingWidget();
+                    } else {
+                      return Row(
+                        children: [
+                          const Spacer(
+                            flex: 1,
+                          ),
+                          Flexible(
+                            flex: 5,
+                            child: _buildGlassyAttributesTable(
+                                myController, context),
+                          ),
+                          const Spacer(
+                            flex: 1,
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
+                const SizedBox(height: 40),
+                if (myController.productType == ProductType.machine && myController.machineSpareParts.isNotEmpty) ...[
                   Obx(
                     () {
                       if (myController.isLoadingAttributes.value) {
@@ -115,34 +134,32 @@ class ProductDetailsPage extends StatelessWidget {
                           return Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                                const Spacer(
-                                  flex: 1,
-                                ),
+                              const Spacer(
+                                flex: 1,
+                              ),
                               Flexible(
                                 flex: 5,
                                 child: _buildSparePartsTable(
                                     myController, context),
                               ),
-                                const Spacer(
-                                  flex: 1,
-                                ),
+                              const Spacer(
+                                flex: 1,
+                              ),
                             ],
                           );
                         }
                       }
                     },
                   ),
-                  
                   const SizedBox(height: 40),
-                  ],
-                  PageTailSection(
-                      isMobile: MediaQuery.of(context).size.width >
-                              AppBreakpoints.mobileMaxWidth
-                          ? false
-                          : true)
                 ],
-              )
-            );
+                PageTailSection(
+                    isMobile: MediaQuery.of(context).size.width >
+                            AppBreakpoints.mobileMaxWidth
+                        ? false
+                        : true)
+              ],
+            ));
           }
         });
       },
@@ -245,7 +262,6 @@ class ProductDetailsPage extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.notBlackAndWhiteColor(context),
-                  
                 ),
           ),
           const SizedBox(height: 16), // Space between headline and the table
@@ -282,46 +298,50 @@ class ProductDetailsPage extends StatelessWidget {
                           .withOpacity(0.5), // Glassy effect
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Spare part name
-                        Text(
-                          TranslationService.currentLang.value ==
-                                  const Locale("ar", "EG")
-                              ? sparePart.nameAr
-                              : sparePart.nameEn,
-                          style: TextStyle(
-                            color: AppColors.notBlackAndWhiteColor(context),
-                            fontWeight: FontWeight.w800,
+                    child: InkWell(
+                      onTap: () =>
+                          myController.goToSparePartDetailsPage(sparePart),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Spare part name
+                          Text(
+                            TranslationService.currentLang.value ==
+                                    const Locale("ar", "EG")
+                                ? sparePart.nameAr
+                                : sparePart.nameEn,
+                            style: TextStyle(
+                              color: AppColors.notBlackAndWhiteColor(context),
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 8),
+                          const SizedBox(height: 8),
 
-                        // Image of the spare part
-                        Expanded(
-                          child: buildImage(
-                            sparePart.photoName,
-                            [],
-                            filePath: sparePart.photoPath,
-                            height: 200, // Set a fixed height for the image
+                          // Image of the spare part
+                          Expanded(
+                            child: buildImage(
+                              sparePart.photoName,
+                              [],
+                              filePath: sparePart.photoPath,
+                              height: 200, // Set a fixed height for the image
+                            ),
                           ),
-                        ),
 
-                        const SizedBox(height: 8),
+                          const SizedBox(height: 8),
 
-                        // Part type or additional details
-                        Text(
-                          TranslationService.currentLang.value ==
-                                  const Locale("ar", "EG")
-                              ? sparePart.typeAr
-                              : sparePart.typeEn,
-                          style: TextStyle(
-                            color: AppColors.notBlackAndWhiteColor(context),
-                            fontWeight: FontWeight.w500,
+                          // Part type or additional details
+                          Text(
+                            TranslationService.currentLang.value ==
+                                    const Locale("ar", "EG")
+                                ? sparePart.typeAr
+                                : sparePart.typeEn,
+                            style: TextStyle(
+                              color: AppColors.notBlackAndWhiteColor(context),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -343,44 +363,67 @@ class ShimmerPage extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // Shimmer for the Title Box
           Shimmer.fromColors(
             baseColor: AppColors.shimmerBaseColor(context),
             highlightColor: AppColors.shimmerHighlightColor(context),
             child: Container(
-              width: 200,
-              height: 20,
+              width: 400,
+              height: 40,
               color: Colors.grey[300],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
+          Column(
+            children: List.generate(3, (index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Shimmer.fromColors(
+                  baseColor: AppColors.shimmerBaseColor(context),
+                  highlightColor: AppColors.shimmerHighlightColor(context),
+                  child: Container(
+                    width: 200,
+                    height: 20,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.grey[300]),
+                  ),
+                ),
+              );
+            }),
+          ),
+          const SizedBox(height: 30),
 
           // Shimmer for the Image Box
           Shimmer.fromColors(
             baseColor: AppColors.shimmerBaseColor(context),
             highlightColor: AppColors.shimmerHighlightColor(context),
             child: Container(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width - 70,
               height: 200,
-              color: Colors.grey[300],
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: Colors.grey[300]),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 40),
 
           // Shimmer for Description Rows
           Column(
             children: List.generate(3, (index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Shimmer.fromColors(
                   baseColor: AppColors.shimmerBaseColor(context),
                   highlightColor: AppColors.shimmerHighlightColor(context),
                   child: Container(
                     width: double.infinity,
-                    height: 16,
-                    color: Colors.grey[300],
+                    height: 20,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.grey[300]),
                   ),
                 ),
               );

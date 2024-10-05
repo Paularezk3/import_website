@@ -17,10 +17,10 @@ class ProductDetailsController extends GetxController {
   RxList<ProductAttributesAndTypes> attribute =
       RxList<ProductAttributesAndTypes>();
 
-  final ProductType productType;
-  final int? productId;
-  final Machines? machineValue;
-  final SpareParts? sparePartValue;
+  ProductType productType;
+  int? productId;
+  Machines? machineValue;
+  SpareParts? sparePartValue;
 
   // Constructor to pass the necessary data when initializing the controller
   ProductDetailsController({
@@ -33,6 +33,10 @@ class ProductDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    initialize();
+  }
+
+  void initialize() {
     fetchData(productType,
         productId: productId,
         machineValue: machineValue,
@@ -43,9 +47,16 @@ class ProductDetailsController extends GetxController {
     }
   }
 
+  @override
+  void dispose() {
+    Get.delete<
+        ProductDetailsController>(); // Delete the controller when the widget is disposed
+    super.dispose();
+  }
+
   Future<void> fetchData(ProductType productType,
       {int? productId, Machines? machineValue, SpareParts? spareParts}) async {
-    if (isLoading1.value == true) isLoading1.value = false;
+    if (isLoading1.value == false) isLoading1.value = true;
 
     if (productType == ProductType.machine) {
       fetchMachine(machineValue: machineValue, productId: productId);
@@ -88,7 +99,7 @@ class ProductDetailsController extends GetxController {
     List<ProductAttributesAndTypes> tempAttribute2 = [];
     for (var attr in tempAttribute1) {
       if (attr.source == "attribute") {
-        if (attr.entityType == ProductType.machine) {
+        if (attr.entityType == productType) {
           if (attr.id == productId) {
             tempAttribute2.add(attr);
           }
@@ -109,5 +120,12 @@ class ProductDetailsController extends GetxController {
         .getMachineSpareParts(productId ?? sparePartValue!.id);
 
     isLoadingMachineSpareParts.value = false;
+  }
+
+  void goToSparePartDetailsPage(SpareParts sparePart) {
+    Get.delete<ProductDetailsController>();
+    Get.toNamed("/spare_part/${sparePart.id}",
+        arguments: {"spare_part": sparePart});
+      
   }
 }

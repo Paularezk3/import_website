@@ -38,6 +38,10 @@ class ServicesController extends GetxController {
     machinesPhotos.value =
         await mainController.fetchDataWithTimeout(newString, timeoutSeconds: 5) ?? [];
 
+    newString = '${spareParts[0].photoPath}get_these.php?path=/';
+    sparePartsPhotos.value =
+        await mainController.fetchDataWithTimeout(newString, timeoutSeconds: 5) ?? [];
+
     pagePhotos.value = await mainController.fetchPhotos(
           'files/services_page/photos/get_these.php?path=/',
         ) ??
@@ -47,5 +51,9 @@ class ServicesController extends GetxController {
 
   void goToMachineDetailsPage(Machines machine) {
     Get.toNamed("/machine/${machine.id}", arguments: {"machine": machine});
+  }
+
+  void goToSparePartDetailsPage(SpareParts sparePart) {
+    Get.toNamed("/spare_part/${sparePart.id}", arguments: {"spare_part": sparePart});
   }
 }

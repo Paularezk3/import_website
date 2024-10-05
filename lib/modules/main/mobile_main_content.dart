@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:import_website/core/utils/app_colors.dart';
 import 'package:import_website/modules/home/views/mobile_home_view.dart';
+import 'package:import_website/modules/our_products/views/mobile_our_products_view.dart';
 import 'package:import_website/modules/product_details/machine_details_page.dart';
+import 'package:import_website/modules/product_details/spare_parts_details_page.dart';
 import 'package:import_website/widgets/defaults/default_loading_widget.dart';
 import '../../core/utils/translation/translation_service.dart';
 import '../../routes/pages_names.dart';
@@ -151,6 +153,12 @@ class _MobileMainContentState extends State<MobileMainContent>
                 } else if (mainHomeController.currentPage.value ==
                     WebsiteView.machineDetails) {
                   return const MachineDetailsPage();
+                } else if (mainHomeController.currentPage.value ==
+                    WebsiteView.sparePartDetails) {
+                  return const SparePartsDetailsPage();
+                } else if (mainHomeController.currentPage.value ==
+                    WebsiteView.ourProducts) {
+                  return const MobileOurProductsView();
                 } else {
                   return Container();
                 }
@@ -197,12 +205,12 @@ class _MobileMainContentState extends State<MobileMainContent>
                       // About ListTile
                       _buildNavItem(
                         context,
-                        title: 'about'.tr,
+                        title: 'our_products'.tr,
                         isActive:
                             Get.find<MainHomeController>().currentPage.value ==
-                                WebsiteView.about,
+                                WebsiteView.ourProducts,
                         onTap: () {
-                          Get.toNamed(PagesNames.aboutUs);
+                          Get.toNamed(PagesNames.ourProducts);
                           _toggleDrawer();
                         },
                       ),

@@ -64,7 +64,9 @@ const Map<String, String> enUS = {
   "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.":
       "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.",
       "Machines": "Machines",
-      "Machine Spare Parts":"Machine Spare Parts"
+      "Machine Spare Parts":"Machine Spare Parts",
+      "Spare Parts":"Spare Parts",
+      'our_products':'Our Products'
 };
 
 const Map<String, String> arEG = {
@@ -133,5 +135,7 @@ const Map<String, String> arEG = {
   "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines.":
       "يضمن مؤسسنا، رزق أيوب، التحسين المستمر والابتكار في آلاتنا.",
       "Machines": "الماكينات",
-      "Machine Spare Parts":"قطع غيار الماكينة"
+      "Machine Spare Parts":"قطع غيار الماكينة",
+      "Spare Parts":"قطع الغيار",
+      'our_products':'منتجاتنا'
 };

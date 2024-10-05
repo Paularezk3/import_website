@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:import_website/widgets/defaults/clickable_logo.dart';
 
 import '../../core/utils/app_colors.dart';
-import '../../core/utils/app_constants.dart';
 import '../../core/utils/translation/translation_service.dart';
 import '../../routes/pages_names.dart';
 import 'controllers/main_home_controller.dart';
@@ -91,27 +90,7 @@ class DesktopAppbar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0.0,
       surfaceTintColor: AppColors.blackAndWhiteColor(context),
       shadowColor: AppColors.notBlackAndWhiteColor(context),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(
-            AppConstants.mainCompanyLogo,
-            height: 30,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(width: 12.0),
-          if (MediaQuery.of(context).size.width > 700)
-            Text(
-              AppConstants.companyShortName.tr,
-              style: GoogleFonts.lato(
-                textStyle: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                    color: AppColors.notBlackAndWhiteColor(context)),
-              ),
-            ),
-        ],
-      ),
+      title: ClickableLogo(),
       actions: [
         buildAppBarButton(
           context,
@@ -123,10 +102,10 @@ class DesktopAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         buildAppBarButton(
           context,
-          title: 'about'.tr,
-          isActive: mainHomeController.currentPage.value == WebsiteView.about,
+          title: 'our_products'.tr,
+          isActive: mainHomeController.currentPage.value == WebsiteView.ourProducts,
           onTap: () {
-            Get.toNamed(PagesNames.aboutUs);
+            Get.toNamed(PagesNames.ourProducts);
           },
         ),
         buildAppBarButton(

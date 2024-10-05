@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:import_website/modules/main/controllers/main_home_controller.dart';
 import 'package:import_website/modules/main/main_home_view.dart';
-import 'package:import_website/modules/product_details/machine_details_page.dart';
 import 'package:import_website/routes/pages_names.dart';
 
 class AppPages {
@@ -28,8 +27,20 @@ class AppPages {
       transition: Transition.noTransition
     ),
     GetPage(
+      name: PagesNames.ourProducts,
+      page: () => const MainHomeView(page: WebsiteView.ourProducts,),
+      fullscreenDialog: true,
+      transition: Transition.noTransition
+    ),
+    GetPage(
       name: PagesNames.machineDetailsPage,
       page: () => const MainHomeView(page: WebsiteView.machineDetails,),
+      fullscreenDialog: true,
+      transition: Transition.noTransition
+    ),
+    GetPage(
+      name: PagesNames.sparePartsDetailsPage,
+      page: () => const MainHomeView(page: WebsiteView.sparePartDetails,),
       fullscreenDialog: true,
       transition: Transition.noTransition
     ),

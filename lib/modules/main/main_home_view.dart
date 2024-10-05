@@ -12,7 +12,6 @@ class MainHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveWidget(
       mobile: MobileMainContent(page: page,),
-      tablet: DesktopMainContent(page: page,),
       desktop: DesktopMainContent(page: page,),
     );
   }

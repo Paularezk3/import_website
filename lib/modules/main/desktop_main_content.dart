@@ -4,7 +4,9 @@ import 'package:import_website/modules/contact_us/views/desktop_contact_us_view.
 import 'package:import_website/modules/home/controller/home_controller.dart';
 import 'package:import_website/modules/home/views/laptop_home_view.dart';
 import 'package:import_website/modules/main/desktop_appbar.dart';
+import 'package:import_website/modules/our_products/views/desktop_our_products_view.dart';
 import 'package:import_website/modules/product_details/machine_details_page.dart';
+import 'package:import_website/modules/product_details/spare_parts_details_page.dart';
 
 import '../../core/utils/app_colors.dart';
 import '../../widgets/defaults/default_loading_widget.dart';
@@ -56,6 +58,12 @@ class DesktopMainContent extends StatelessWidget {
                     } else if (mainHomeController.currentPage.value ==
                         WebsiteView.machineDetails) {
                       return const MachineDetailsPage();
+                    } else if (mainHomeController.currentPage.value ==
+                        WebsiteView.sparePartDetails) {
+                      return const SparePartsDetailsPage();
+                    } else if (mainHomeController.currentPage.value ==
+                        WebsiteView.ourProducts) {
+                      return const DesktopOurProductsView();
                     } else {
                       return const SliverToBoxAdapter();
                     }

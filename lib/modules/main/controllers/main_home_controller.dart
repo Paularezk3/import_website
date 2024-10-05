@@ -8,7 +8,7 @@ import '../../../core/services/api_urls.dart';
 import '../../../core/services/debugging_test.dart';
 import '../../../core/services/get_data.dart';
 
-enum WebsiteView { home, about, contactUs, services, machineDetails }
+enum WebsiteView { home, ourProducts, contactUs, services, machineDetails, sparePartDetails }
 
 class MainHomeController extends GetxController {
   
