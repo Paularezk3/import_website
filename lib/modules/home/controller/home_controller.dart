@@ -1,4 +1,3 @@
-import 'package:chewie/chewie.dart';
 import 'package:get/get.dart';
 import 'package:import_website/routes/pages_names.dart';
 import 'package:video_player/video_player.dart';
@@ -11,7 +10,6 @@ class HomeController extends GetxController {
   final mainController = Get.find<MainHomeController>();
   late Rx<VideoPlayerController> videoPlayerController;
   late Rx<Future<void>> initializeVideoPlayerFuture;
-  late Rx<ChewieController> chewieController;
   RxString videoError = ''.obs;
   int retryCount = 0;
   final int maxRetries = 3;
@@ -41,27 +39,25 @@ class HomeController extends GetxController {
     // Fetch data with timeout
     photos.value = await mainController.fetchPhotos(
           'files/homepage/photos/get_these.php?path=/',
-        ) ??
-        [];
+        ) ?? [];
   }
 
   // Retry logic for video initialization
   Future<void> _initializeVideoWithRetry() async {
     while (retryCount < maxRetries) {
       try {
+        if (videoPlayerController.value.value.hasError) {
+          Exception();
+        }
+
         initializeVideoPlayerFuture =
             videoPlayerController.value.initialize().obs;
         await initializeVideoPlayerFuture.value;
 
-        // Create Chewie controller once video is ready
-        chewieController = ChewieController(
-          showControls: false,
-          showOptions: false,
-          showControlsOnInitialize: false,
-          videoPlayerController: videoPlayerController.value,
-          looping: true,
-          autoPlay: true,
-        ).obs;
+        // Autoplay and loop the video
+        videoPlayerController.value.setVolume(0);
+        videoPlayerController.value.setLooping(true);
+        videoPlayerController.value.play();
 
         return; // Exit on success
       } catch (error) {
@@ -84,7 +80,7 @@ class HomeController extends GetxController {
     isMobile.value = newValue;
   }
 
-  void goToContactUsPage(){
+  void goToContactUsPage() {
     Get.toNamed(PagesNames.contactUs);
   }
 

@@ -6,6 +6,7 @@ import '../../../../core/utils/app_colors.dart';
 import '../../../../widgets/defaults/default_submit_button.dart';
 import '../../../../widgets/defaults/default_text_form_field.dart';
 import '../../../main/controllers/main_home_controller.dart';
+import '../../widgets/clickable_text.dart';
 
 class ContactElMasryaSection extends StatelessWidget {
   final bool isMobile;
@@ -140,22 +141,7 @@ class ContactElMasryaSection extends StatelessWidget {
                           .titleMedium!
                           .copyWith(fontWeight: FontWeight.w700),
                     ),
-                    Row(
-                      children: [
-                        SelectableText(
-                          "01015811730",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        Text(
-                          " - ",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        SelectableText(
-                          "01206120110",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
-                    ),
+                    CopyableText(),
                     const SizedBox(height: 15),
                     Text(
                       "support".tr,

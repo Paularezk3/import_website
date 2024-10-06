@@ -67,7 +67,8 @@ const Map<String, String> enUS = {
   "Machine Spare Parts": "Machine Spare Parts",
   "Spare Parts": "Spare Parts",
   'our_products': 'Our Products',
-  "Spare Parts Availability": "Spare Parts Availability"
+  "Spare Parts Availability": "Spare Parts Availability",
+  "Enter Your Inquiry":"Enter Your Inquiry"
 };
 
 const Map<String, String> arEG = {
@@ -139,5 +140,6 @@ const Map<String, String> arEG = {
   "Machine Spare Parts": "قطع غيار الماكينة",
   "Spare Parts": "قطع الغيار",
   'our_products': 'منتجاتنا',
-  "Spare Parts Availability": "تواجد قطع الغيار"
+  "Spare Parts Availability": "تواجد قطع الغيار",
+  "Enter Your Inquiry":"ادخل استفسارك"
 };
