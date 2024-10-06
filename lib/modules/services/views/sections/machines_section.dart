@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:import_website/core/utils/app_colors.dart';
@@ -112,7 +113,7 @@ class MachinesSection extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Obx(() {
-                                              return Text(
+                                              return AutoSizeText(
                                                 TranslationService.currentLang
                                                             .value ==
                                                         const Locale("ar", "EG")
@@ -129,6 +130,9 @@ class MachinesSection extends StatelessWidget {
                                                               context),
                                                     ),
                                                 overflow: TextOverflow.clip,
+                                                maxLines: 2,
+                                                minFontSize: 12,
+                                                stepGranularity: 1,
                                               );
                                             }),
                                             const SizedBox(height: 5.0),

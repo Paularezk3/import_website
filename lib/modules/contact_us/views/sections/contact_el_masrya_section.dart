@@ -22,7 +22,7 @@ class ContactElMasryaSection extends StatelessWidget {
     // Form widget for text fields
     var form = Container(
       decoration: BoxDecoration(
-        color: Colors.blueGrey[50], // Unique background color for the form
+        color: AppColors.backgroundSecondaryColor(context), // Unique background color for the form
         borderRadius:
             BorderRadius.circular(15.0), // Rounded corners for a special look
         boxShadow: [

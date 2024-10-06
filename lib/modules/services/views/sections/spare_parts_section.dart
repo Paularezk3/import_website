@@ -4,7 +4,7 @@ import 'package:import_website/core/utils/app_colors.dart';
 import 'package:import_website/core/utils/translation/translation_service.dart';
 import 'package:import_website/modules/services/controller/services_controller.dart';
 import 'package:import_website/widgets/default_build_image.dart';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import '../../../../widgets/defaults/default_loading_widget.dart';
 
 class SparePartsSection extends StatelessWidget {
@@ -101,7 +101,7 @@ class SparePartsSection extends StatelessWidget {
                                       Expanded(
                                         child: Column(
                                           children: [
-                                            Text(
+                                            AutoSizeText(
                                               TranslationService
                                                           .currentLang.value ==
                                                       const Locale("ar", "EG")
@@ -117,6 +117,10 @@ class SparePartsSection extends StatelessWidget {
                                                         .notBlackAndWhiteColor(
                                                             context),
                                                   ),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.clip,
+                                              minFontSize: 12,
+                                              stepGranularity: 1,
                                             ),
                                             const SizedBox(height: 5.0),
                                             Obx(() {
