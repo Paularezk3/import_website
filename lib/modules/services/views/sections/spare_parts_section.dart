@@ -56,67 +56,110 @@ class SparePartsSection extends StatelessWidget {
                     mainAxisSpacing: 10.0,
                   ),
                   itemBuilder: (context, index) {
-                    return GestureDetector(
+                    return InkWell(
                       onTap: () {
                         myController.goToSparePartDetailsPage(
                             myController.spareParts[index]);
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: HoverCard(
-                          onPressed: () => myController.goToSparePartDetailsPage(
-                              myController.spareParts[index]),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child:
-                                      myController.isLoadingSparePartsPhotos.value
-                                          ? buildImage(
-                                              myController
-                                                  .spareParts[index].photoName,
-                                              [],
-                                              filePath: myController
-                                                  .spareParts[index].photoPath)
-                                          : buildImage(
-                                              myController
-                                                  .spareParts[index].photoName,
-                                              myController.sparePartsPhotos,
+                      child: HoverCard(
+                        onPressed: () => myController.goToSparePartDetailsPage(
+                            myController.spareParts[index]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  15.0), // Rounded corners
+                              border: Border.all(
+                                  color: Colors.grey,
+                                  width:
+                                      1.5), // Stroke/border around the container
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: myController
+                                            .isLoadingSparePartsPhotos.value
+                                        ? buildImage(
+                                            myController
+                                                .spareParts[index].photoName,
+                                            [],
+                                            filePath: myController
+                                                .spareParts[index].photoPath)
+                                        : buildImage(
+                                            myController
+                                                .spareParts[index].photoName,
+                                            myController.sparePartsPhotos,
+                                          ),
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              TranslationService
+                                                          .currentLang.value ==
+                                                      const Locale("ar", "EG")
+                                                  ? myController
+                                                      .spareParts[index].nameAr
+                                                  : myController
+                                                      .spareParts[index].nameEn,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .copyWith(
+                                                    color: AppColors
+                                                        .notBlackAndWhiteColor(
+                                                            context),
+                                                  ),
                                             ),
-                                ),
-                              ),
-                              const SizedBox(height: 15.0),
-                              Obx(() {
-                                return Text(
-                                  TranslationService.currentLang.value ==
-                                          const Locale("ar", "EG")
-                                      ? myController.spareParts[index].nameAr
-                                      : myController.spareParts[index].nameEn,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                        color: AppColors.notBlackAndWhiteColor(
-                                            context),
+                                            const SizedBox(height: 5.0),
+                                            Obx(() {
+                                              return Text(
+                                                TranslationService.currentLang
+                                                            .value ==
+                                                        const Locale("ar", "EG")
+                                                    ? myController
+                                                        .spareParts[index]
+                                                        .descriptionAr
+                                                    : myController
+                                                        .spareParts[index]
+                                                        .descriptionEn,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall,
+                                              );
+                                            }),
+                                          ],
+                                        ),
                                       ),
-                                );
-                              }),
-                              const SizedBox(height: 5.0),
-                              Obx(() {
-                                return Text(
-                                  TranslationService.currentLang.value ==
-                                          const Locale("ar", "EG")
-                                      ? myController
-                                          .spareParts[index].descriptionAr
-                                      : myController
-                                          .spareParts[index].descriptionEn,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                );
-                              }),
-                            ],
+                                      const SizedBox(width: 8.0),
+                                      // Circular arrow icon on the right
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.grey[
+                                              200], // Background color for circle
+                                        ),
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: const Icon(
+                                          Icons.arrow_forward, // Arrow icon
+                                          size: 18.0,
+                                          color: Colors.black, // Icon color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../widgets/default_build_image.dart';
 import '../../controller/home_controller.dart';
@@ -16,26 +16,48 @@ class OurServicesSection extends StatefulWidget {
 class _OurServicesSectionState extends State<OurServicesSection>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<Offset> _animation;
+  late Animation<Offset> _titleSlideAnimation;
+  late Animation<double> _textOpacityAnimation;
+  late Animation<double> _imageAnimation;
   final myController = Get.find<HomeController>();
+
+  bool _isVisible = false;
 
   @override
   void initState() {
     super.initState();
+
+    // Animation controller for both slide and opacity animations
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     );
 
-    _animation = Tween<Offset>(
-      begin: const Offset(0, 1),
-      end: Offset.zero,
+    // Title slide animation from left to right
+    _titleSlideAnimation = Tween<Offset>(
+      begin: const Offset(-1.5, 0), // Start offscreen to the left
+      end: Offset.zero, // End at its original position
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeOut,
+      curve: Curves.easeInOutCubic,
     ));
 
-    _controller.forward();
+    // Text opacity animation from 0% to 100%
+    _textOpacityAnimation = Tween<double>(
+      begin: 0.0, // Start fully transparent
+      end: 1.0, // End fully opaque
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOutCubic,
+    ));
+
+    _imageAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOutCubic,
+    ));
   }
 
   @override
@@ -44,10 +66,19 @@ class _OurServicesSectionState extends State<OurServicesSection>
     super.dispose();
   }
 
+  // Trigger animation when the section becomes visible on the screen
+  void _onVisibilityChanged(VisibilityInfo info) {
+    if (info.visibleFraction > 0.2 && !_isVisible) {
+      _isVisible = true;
+      _controller.forward(); // Only start the animation when visible
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _animation,
+    return VisibilityDetector(
+      key: const Key('our_services_section'),
+      onVisibilityChanged: _onVisibilityChanged,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: widget.isMobile ? mobile(context) : laptop(context),
@@ -58,49 +89,36 @@ class _OurServicesSectionState extends State<OurServicesSection>
   Column mobile(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Our Services'.tr,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.displayLarge!.copyWith(
-            color: AppColors.notBlackAndWhiteColor(context)
+        // Slide transition for the title
+        SlideTransition(
+          position: _titleSlideAnimation,
+          child: Text(
+            'Our Services'.tr,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  color: AppColors.notBlackAndWhiteColor(context),
+                ),
           ),
         ),
         const SizedBox(height: 8),
-        Text(
-          'Providing high-quality recycling machines and spare parts with a commitment to continuous improvement and reliability.'.tr,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 16,
+        // Fade transition for the description text
+        FadeTransition(
+          opacity: _textOpacityAnimation,
+          child: Text(
+            'Providing high-quality recycling machines and spare parts with a commitment to continuous improvement and reliability.'
+                .tr,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.grey,
+              fontSize: 16,
+            ),
           ),
         ),
         const SizedBox(height: 16),
         // First image
-        buildImage('homepage_photo3.jpg', myController.photos),
-        const SizedBox(height: 16),
-        Text(
-          'Machine importing'.tr,
-          textAlign: TextAlign.left,
-          style: GoogleFonts.roboto(
-            textStyle: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: AppColors.notBlackAndWhiteColor(context),
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.'.tr,
-          textAlign: TextAlign.left,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Second image with smaller height and rounded corners
-        buildImage('homepage_photo4.jpg', myController.photos),
+        FadeTransition(
+            opacity: _imageAnimation,
+            child: buildImage('homepage_photo3.jpg', myController.photos)),
         const SizedBox(height: 16),
       ],
     );
@@ -109,27 +127,32 @@ class _OurServicesSectionState extends State<OurServicesSection>
   Column laptop(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Our Services'.tr,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.displayLarge!.copyWith(
-            color: AppColors.notBlackAndWhiteColor(context)
+        // Slide transition for the title
+        SlideTransition(
+          position: _titleSlideAnimation,
+          child: Text(
+            'Our Services'.tr,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  color: AppColors.notBlackAndWhiteColor(context),
+                ),
           ),
-          // style: GoogleFonts.openSans(
-          //   textStyle: TextStyle(
-          //     fontSize: 30,
-          //     fontWeight: FontWeight.w800,
-          //     color: AppColors.notBlackAndWhiteColor(context),
-          //   ),
-          // ),
         ),
         const SizedBox(height: 8),
-        Text(
-            'Providing high-quality recycling machines and spare parts with a commitment to continuous improvement and reliability.'.tr,
+        // Fade transition for the description text
+        FadeTransition(
+          opacity: _textOpacityAnimation,
+          child: Text(
+            'Providing high-quality recycling machines and spare parts with a commitment to continuous improvement and reliability.'
+                .tr,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium),
+            style: const TextStyle(
+              color: Colors.grey,
+              fontSize: 16,
+            ),
+          ),
+        ),
         const SizedBox(height: 16),
-        // First image
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -138,14 +161,17 @@ class _OurServicesSectionState extends State<OurServicesSection>
                 children: [
                   buildImage('homepage_photo3.jpg', myController.photos),
                   const SizedBox(width: 16),
-                  Text('Machine importing'.tr,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                    'Machine importing'.tr,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   const SizedBox(height: 8),
                   Text(
-                    'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.'.tr,
+                    'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.'
+                        .tr,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodySmall
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
@@ -156,14 +182,17 @@ class _OurServicesSectionState extends State<OurServicesSection>
                 children: [
                   buildImage('homepage_photo4.jpg', myController.photos),
                   const SizedBox(height: 16),
-                  Text('Quality Assurance'.tr,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                    'Quality Assurance'.tr,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   const SizedBox(height: 8),
                   Text(
-                    'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.'.tr,
+                    'Regularly importing diverse recycling machines and spare parts to ensure optimal performance and support.'
+                        .tr,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodySmall
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),

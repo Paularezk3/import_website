@@ -96,12 +96,13 @@ class _PageTailSectionState extends State<PageTailSection> {
           textAlign: TextAlign.left,
           style: GoogleFonts.openSans(
             textStyle: const TextStyle(
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.w600,
               color: AppColors.blackAndWhiteLightMode,
             ),
           ),
         ),
+        const SizedBox(height: 8),
         Row(
           children: [
             const Icon(
@@ -124,7 +125,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                 '01015811730',
                 style: GoogleFonts.openSans(
                   textStyle: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: AppColors.blackAndWhiteLightMode,
                   ),
@@ -133,7 +134,7 @@ class _PageTailSectionState extends State<PageTailSection> {
             ),
           ],
         ),
-        const SizedBox(height: 5), // Add some spacing between rows
+        const SizedBox(height: 8), // Add some spacing between rows
         // WhatsApp row
         Row(
           children: [
@@ -157,7 +158,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                 'Contact via WhatsApp'.tr,
                 style: GoogleFonts.openSans(
                   textStyle: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: AppColors.blackAndWhiteLightMode,
                   ),
@@ -167,7 +168,7 @@ class _PageTailSectionState extends State<PageTailSection> {
           ],
         ),
 
-        const SizedBox(height: 5), // Add some spacing between rows
+        const SizedBox(height: 8), // Add some spacing between rows
         Row(
           children: [
             const Icon(
@@ -197,7 +198,7 @@ class _PageTailSectionState extends State<PageTailSection> {
                 'elmasrya2008@gmail.com',
                 style: GoogleFonts.openSans(
                   textStyle: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: AppColors.blackAndWhiteLightMode,
                   ),

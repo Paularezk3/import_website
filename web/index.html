@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <base href="$FLUTTER_BASE_HREF" />
 
@@ -26,7 +26,6 @@
     <script async defer
      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9cX2I8efWiAW41bXgOrx47ZgyjJ4JGgo&v=weekly&libraries=places"></script>
 
-  
     <script>
       // Your Firebase configuration
       var firebaseConfig = {
@@ -42,12 +41,97 @@
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
     </script>
+
+    <style>
+      /* Basic styling for the loading screen */
+      #splash {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 9999;
+        color: white;
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+
+      /* Styling for the logo */
+      #splash img {
+        width: 100px; /* Adjust the size as needed */
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+      /* Animation for the Loading text */
+      @keyframes dots {
+        0%   { content: ""; }
+        33%  { content: "."; }
+        66%  { content: ".."; }
+        100% { content: "..."; }
+      }
+
+      .loading-text::after {
+        content: "";
+        animation: dots 1.5s steps(1, end) infinite;
+      }
+
+      /* Arabic text styling */
+      .loading-arabic::after {
+        content: "";
+        animation: dots 1.5s steps(1, end) infinite;
+      }
+
+      /* Styling for the loading bar container */
+      .loading-bar-container {
+        width: 80%;  /* Bar width relative to screen */
+        height: 10px;
+        background-color: #555;
+        border-radius: 5px;
+        margin-top: 20px;
+        overflow: hidden;
+      }
+
+      /* Actual loading bar with animation */
+      .loading-bar {
+        height: 100%;
+        background-color: #4caf50;  /* Green color for loading bar */
+        width: 0%;
+        border-radius: 5px;
+        animation: load 4s ease-in-out infinite;
+      }
+
+      /* Loading bar animation */
+      @keyframes load {
+        0%   { width: 0%; }
+        50%  { width: 100%; }
+        100% { width: 0%; }
+      }
+    </style>
   </head>
 
   <body>
     <!-- Splash Screen -->
-    <div id="splash" style="position: fixed; width: 100%; height: 100%; background-color: black; display: flex; justify-content: center; align-items: center; z-index: 9999;">
-      <p>Loading...</p>
+    <div id="splash">
+      <!-- Company Logo in the middle -->
+      <img src="icons/Icon-192.png" alt="Company Logo" />
+
+      <!-- English Loading Text with animated dots -->
+      <p class="loading-text">Loading</p>
+
+      <!-- Arabic Loading Text with animated dots -->
+      <p class="loading-arabic" style="font-family: 'Arial', sans-serif; font-size: 18px;">تحميل</p>
+
+      <!-- Loading bar container -->
+      <div class="loading-bar-container">
+        <!-- Animated loading bar -->
+        <div class="loading-bar"></div>
+      </div>
     </div>
 
     <script src="main.dart.js" type="application/javascript"></script>

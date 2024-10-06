@@ -19,65 +19,86 @@ class ContactElMasryaSection extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     // Form widget for text fields
-    var form = Form(
-      key: formKey,
-      child: Column(
-        children: [
-          DefaultTextFormField(
-            color: AppColors.notBlackAndWhiteColor(context),
-            controller: nameTextController,
-            hintText: "Enter your Name".tr,
-            keyboardType: TextInputType.name,
-            labelText: "Name".tr,
-            validator: (value) {
-              if (value == "") return "Enter your Name".tr;
-              return null;
-            },
+    var form = Container(
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[50], // Unique background color for the form
+        borderRadius:
+            BorderRadius.circular(15.0), // Rounded corners for a special look
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3), // Soft shadow for depth
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3), // Shadow position
           ),
-          const SizedBox(height: 10),
-          DefaultTextFormField(
-            color: AppColors.notBlackAndWhiteColor(context),
-            controller: emailTextController,
-            hintText: "Enter your email".tr,
-            keyboardType: TextInputType.emailAddress,
-            labelText: "Email".tr,
-            validator: (value) {
-              if (value == "") return "Enter your email".tr;
-              if (value != "" && !value!.contains("@")) {
-                return "Enter a correct email".tr;
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 10),
-          DefaultTextFormField(
-            color: AppColors.notBlackAndWhiteColor(context),
-            controller: descriptionTextController,
-            hintText: "Enter any description".tr,
-            keyboardType: TextInputType.text,
-            labelText: "Description".tr,
-            validator: (value) {
-              if (value == "") return "Enter any description".tr;
-              return null;
-            },
-          ),
-          const SizedBox(height: 20),
-          Obx(() {
-            return DefaultSubmitButton(
-              isLoading: Get.find<MainHomeController>().isSubmitted.value,
-              text: "Submit Your Inquiry".tr,
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  Get.find<MainHomeController>().submitInquiry(
-                    nameTextController.text.trim(),
-                    emailTextController.text.trim(),
-                    descriptionTextController.text.trim(),
-                  );
-                }
-              },
-            );
-          }),
         ],
+      ),
+      padding: const EdgeInsets.all(16.0), // Padding inside the form container
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: [
+            Text("Enter Your Inquiry".tr, style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.w600,
+              fontSize: 20
+            ),),
+            const SizedBox(height: 10),
+            DefaultTextFormField(
+              color: AppColors.notBlackAndWhiteColor(context),
+              controller: nameTextController,
+              hintText: "Enter your Name".tr,
+              keyboardType: TextInputType.name,
+              labelText: "Name".tr,
+              validator: (value) {
+                if (value == "") return "Enter your Name".tr;
+                return null;
+              },
+            ),
+            const SizedBox(height: 10),
+            DefaultTextFormField(
+              color: AppColors.notBlackAndWhiteColor(context),
+              controller: emailTextController,
+              hintText: "Enter your email".tr,
+              keyboardType: TextInputType.emailAddress,
+              labelText: "Email".tr,
+              validator: (value) {
+                if (value == "") return "Enter your email".tr;
+                if (value != "" && !value!.contains("@")) {
+                  return "Enter a correct email".tr;
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 10),
+            DefaultTextFormField(
+              color: AppColors.notBlackAndWhiteColor(context),
+              controller: descriptionTextController,
+              hintText: "Enter any description".tr,
+              keyboardType: TextInputType.text,
+              labelText: "Description".tr,
+              validator: (value) {
+                if (value == "") return "Enter any description".tr;
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            Obx(() {
+              return DefaultSubmitButton(
+                isLoading: Get.find<MainHomeController>().isSubmitted.value,
+                text: "Submit Your Inquiry".tr,
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    Get.find<MainHomeController>().submitInquiry(
+                      nameTextController.text.trim(),
+                      emailTextController.text.trim(),
+                      descriptionTextController.text.trim(),
+                    );
+                  }
+                },
+              );
+            }),
+          ],
+        ),
       ),
     );
 
@@ -104,12 +125,12 @@ class ContactElMasryaSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Get in touch for inquiries about our recycling machines and services. We are here to assist you with your needs.".tr,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontWeight: FontWeight.w200,
-                          color: AppColors.notBlackAndWhiteColor(context).withAlpha(200)),
+                      "Get in touch for inquiries about our recycling machines and services. We are here to assist you with your needs."
+                          .tr,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.w200,
+                          color: AppColors.notBlackAndWhiteColor(context)
+                              .withAlpha(200)),
                     ),
                     const SizedBox(height: 25),
                     Text(
@@ -119,9 +140,21 @@ class ContactElMasryaSection extends StatelessWidget {
                           .titleMedium!
                           .copyWith(fontWeight: FontWeight.w700),
                     ),
-                    Text(
-                      "01015811730 - 01206120110",
-                      style: Theme.of(context).textTheme.bodySmall,
+                    Row(
+                      children: [
+                        SelectableText(
+                          "01015811730",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        Text(
+                          " - ",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        SelectableText(
+                          "01206120110",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 15),
                     Text(
@@ -149,10 +182,8 @@ class ContactElMasryaSection extends StatelessWidget {
                           throw 'Could not launch email app'.tr;
                         }
                       },
-                      child: Text(
-                        'elmasrya2008@gmail.com',
-                        style: Theme.of(context).textTheme.bodySmall
-                      ),
+                      child: SelectableText('elmasrya2008@gmail.com',
+                          style: Theme.of(context).textTheme.bodySmall),
                     ),
                     const SizedBox(height: 15),
                     if (isMobile) form

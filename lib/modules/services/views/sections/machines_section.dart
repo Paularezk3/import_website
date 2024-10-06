@@ -45,10 +45,11 @@ class MachinesSection extends StatelessWidget {
                     : constraints.maxWidth > 700
                         ? (constraints.maxWidth > 1000 ? 4 : 3)
                         : 2;
-                  
+
                 return GridView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(), // Disable inner GridView scroll
+                  physics:
+                      const NeverScrollableScrollPhysics(), // Disable inner GridView scroll
                   itemCount: myController.machines.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
@@ -56,53 +57,122 @@ class MachinesSection extends StatelessWidget {
                     mainAxisSpacing: 10.0,
                   ),
                   itemBuilder: (context, index) {
-                    return GestureDetector(
+                    return InkWell(
                       onTap: () {
-                        myController.goToMachineDetailsPage(myController.machines[index]);
+                        myController.goToMachineDetailsPage(
+                            myController.machines[index]);
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: HoverCard(
-                          onPressed: () => myController.goToMachineDetailsPage(myController.machines[index]),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: myController.isLoadingMachinesPhotos.value
+                      child: HoverCard(
+                        onPressed: () => myController.goToMachineDetailsPage(
+                            myController.machines[index]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(
+                              8.0), // Padding around each grid item
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  15.0), // Rounded corners
+                              border: Border.all(
+                                  color: Colors.grey,
+                                  width:
+                                      1.5), // Stroke/border around the container
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(
+                                  12.0), // Inner padding for content
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align content to the left
+                                children: [
+                                  Expanded(
+                                    child: myController
+                                            .isLoadingMachinesPhotos.value
                                         ? buildImage(
                                             myController
                                                 .machines[index].photoName,
                                             [],
                                             filePath: myController
-                                                .machines[index].photoPath)
+                                                .machines[index].photoPath,
+                                          )
                                         : buildImage(
                                             myController
                                                 .machines[index].photoName,
                                             myController.machinesPhotos,
                                           ),
-                              ),
-                              const SizedBox(height: 15.0),
-                              Obx(() {
-                                return Text(
-                                  TranslationService.currentLang.value == const Locale("ar", "EG")
-                                      ? myController.machines[index].nameAr
-                                      : myController.machines[index].nameEn,
-                                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                                        color: AppColors.notBlackAndWhiteColor(context),
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween, // Title on the left, arrow on the right
+                                    children: [
+                                      Expanded(
+                                        // Ensure title and description take available space
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Obx(() {
+                                              return Text(
+                                                TranslationService.currentLang
+                                                            .value ==
+                                                        const Locale("ar", "EG")
+                                                    ? myController
+                                                        .machines[index].nameAr
+                                                    : myController
+                                                        .machines[index].nameEn,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .copyWith(
+                                                      color: AppColors
+                                                          .notBlackAndWhiteColor(
+                                                              context),
+                                                    ),
+                                                overflow: TextOverflow.clip,
+                                              );
+                                            }),
+                                            const SizedBox(height: 5.0),
+                                            Obx(() {
+                                              return Text(
+                                                TranslationService.currentLang
+                                                            .value ==
+                                                        const Locale("ar", "EG")
+                                                    ? myController
+                                                        .machines[index]
+                                                        .descriptionAr
+                                                    : myController
+                                                        .machines[index]
+                                                        .descriptionEn,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall,
+                                              );
+                                            }),
+                                          ],
+                                        ),
                                       ),
-                                );
-                              }),
-                              const SizedBox(height: 5.0),
-                              Obx(() {
-                                return Text(
-                                  TranslationService.currentLang.value == const Locale("ar", "EG")
-                                      ? myController.machines[index].descriptionAr
-                                      : myController.machines[index].descriptionEn,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                );
-                              }),
-                            ],
+                                      const SizedBox(width: 8.0),
+                                      // Circular arrow icon on the right
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.grey[
+                                              200], // Background color for circle
+                                        ),
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: const Icon(
+                                          Icons.arrow_forward, // Arrow icon
+                                          size: 18.0,
+                                          color: Colors.black, // Icon color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -117,7 +187,6 @@ class MachinesSection extends StatelessWidget {
     });
   }
 }
-
 
 class HoverCard extends StatefulWidget {
   final Widget child;
@@ -151,7 +220,8 @@ class _HoverCardState extends State<HoverCard> {
                 child: ElevatedButton(
                   onPressed: widget.onPressed,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Set the background color here
+                    backgroundColor:
+                        Colors.blue, // Set the background color here
                   ),
                   child: Text(
                     "View Details",

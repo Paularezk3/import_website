@@ -33,7 +33,6 @@ class RecyclingServices extends StatelessWidget {
           ),
           Text(
             "Regular imports of spare parts support machine reliability and customer satisfaction."
-                .tr
                 .tr,
             style: Theme.of(context).textTheme.bodySmall,
           ),
@@ -52,7 +51,6 @@ class RecyclingServices extends StatelessWidget {
           ),
           Text(
             "We offer shredders, pelletizers, washing lines, and drying machines for various needs."
-                .tr
                 .tr,
             style: Theme.of(context).textTheme.bodySmall,
           ),
@@ -71,7 +69,6 @@ class RecyclingServices extends StatelessWidget {
           ),
           Text(
             "Our founder, Rezk Ayoub, ensures continuous improvement and innovation in our machines."
-                .tr
                 .tr,
             style: Theme.of(context).textTheme.bodySmall,
           ),
@@ -101,7 +98,6 @@ class RecyclingServices extends StatelessWidget {
           ),
           Text(
             "Al Masria imports diverse recycling machines, ensuring quality and reliability for our clients."
-                .tr
                 .tr,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodySmall,
@@ -119,8 +115,11 @@ class RecyclingServices extends StatelessWidget {
                   flex: 1,
                   child: AnimatedContainer(
                     duration: const Duration(seconds: 1),
-                    child: buildImage('services_photo1.jpg', myController.pagePhotos,
-                        height: MediaQuery.of(context).size.width < 700? 500 : 300),
+                    child: buildImage(
+                        'services_photo1.jpg', myController.pagePhotos,
+                        height: MediaQuery.of(context).size.width < 700
+                            ? 500
+                            : 300),
                   ),
                 ),
                 const SizedBox(width: 20),

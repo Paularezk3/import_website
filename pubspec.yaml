@@ -52,6 +52,7 @@ dependencies:
   chewie: ^1.8.5
   google_maps_flutter: ^2.9.0
   google_maps: ^8.0.0
+  visibility_detector: ^0.3.3
 
 dev_dependencies:
   flutter_test:
@@ -75,19 +76,19 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  fonts:
-    - family: Montserrat
-      fonts:
-        - asset: assets/fonts/Montserrat-Bold.ttf
-        - asset: assets/fonts/Montserrat-Medium.ttf
-        - asset: assets/fonts/Montserrat-Light.ttf
+  # fonts:
+  #   - family: Montserrat
+  #     fonts:
+  #       - asset: assets/fonts/Montserrat-Bold.ttf
+  #       - asset: assets/fonts/Montserrat-Medium.ttf
+  #       - asset: assets/fonts/Montserrat-Light.ttf
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/Machines.png
-    - assets/images/tab_1.png
-    - assets/images/tab_1s.png
-    - assets/images/tab_4.png
-    - assets/images/tab_4s.png
+    # - assets/images/Machines.png
+    # - assets/images/tab_1.png
+    # - assets/images/tab_1s.png
+    # - assets/images/tab_4.png
+    # - assets/images/tab_4s.png
     - assets/animations/Loading.json
     - assets/logos/company-logo.png
 
