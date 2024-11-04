@@ -1,3 +1,4 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:import_website/core/database_classes/product_details.dart';
@@ -5,11 +6,14 @@ import 'package:import_website/core/utils/app_breakpoints.dart';
 import 'package:import_website/core/utils/app_colors.dart';
 import 'package:import_website/modules/home/views/sections/page_tail_section.dart';
 import 'package:import_website/modules/product_details/controller/product_details_controller.dart';
+import 'package:import_website/modules/product_details/widgets/rich_text_widget.dart';
 import 'package:import_website/widgets/default_build_image.dart';
 import 'package:import_website/widgets/defaults/default_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../core/database_classes/product_attributes_and_types.dart';
 import '../../core/utils/translation/translation_service.dart';
+
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final ProductType productType;
@@ -22,9 +26,10 @@ class ProductDetailsPage extends StatelessWidget {
       this.productId,
       this.machine,
       this.sparePart});
-
   @override
   Widget build(BuildContext context) {
+    final PageController _pageController = PageController();
+
     return GetBuilder<ProductDetailsController>(
       init: ProductDetailsController(
         productType: productType,
@@ -32,8 +37,7 @@ class ProductDetailsPage extends StatelessWidget {
         machineValue: machine,
         sparePartValue: sparePart,
       ),
-      dispose: (_) => Get.delete<
-          ProductDetailsController>(), // Dispose controller after use
+      dispose: (_) => Get.delete<ProductDetailsController>(),
       builder: (myController) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (myController.productType != productType ||
@@ -47,6 +51,7 @@ class ProductDetailsPage extends StatelessWidget {
             myController.initialize();
           }
         });
+
         return Obx(() {
           if (myController.isLoading1.value) {
             return const ShimmerPage();
@@ -71,8 +76,8 @@ class ProductDetailsPage extends StatelessWidget {
                 const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    TranslationService.currentLang.value ==
+                  child: DefaultRichTextWidget(
+                    textFromDatabase: TranslationService.currentLang.value ==
                             const Locale("ar", "EG")
                         ? myController.machine.value?.descriptionAr ??
                             myController.sparePart.value!.descriptionAr
@@ -86,14 +91,143 @@ class ProductDetailsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
 
-                // Ensuring the image takes space properly
-                buildImage(
-                  myController.machine.value?.photoName ??
-                      myController.sparePart.value!.photoName,
-                  null,
-                  filePath: myController.machine.value?.photoPath ??
-                      myController.sparePart.value!.photoPath,
-                ),
+                Obx(() {
+                  if (myController.isLoadingProductMediaQuery.value) {
+                    return const DefaultLoadingWidget();
+                  } else {
+                    int _length = myController.machinesMediaQuery?.length ??
+                        myController.sparePartsMediaQuery!.length;
+                    return AnimatedContainer(
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic,
+                      height: MediaQuery.of(context).size.width > 700
+                          ? (MediaQuery.of(context).size.width > 850
+                              ? 600
+                              : 500)
+                          : 400,
+                      child: Column(
+                        children: [
+                          Expanded(
+                              child: PageView.builder(
+                            controller: _pageController,
+                            itemCount:
+                                myController.machinesMediaQuery?.length ??
+                                    myController.sparePartsMediaQuery!.length,
+                            itemBuilder: (context, index) {
+                              if (myController
+                                      .machinesMediaQuery?[index].isVideo ??
+                                  myController
+                                      .sparePartsMediaQuery![index].isVideo) {
+                                // Map the current index to the correct video player controller using the videoIndices list
+                                final int videoControllerIndex =
+                                    myController.videoIndices.indexOf(index);
+
+                                // Ensure we are in range
+                                if (videoControllerIndex >= 0 &&
+                                    videoControllerIndex <
+                                        myController
+                                            .videoPlayerControllers.length) {
+                                  return Obx(
+                                    () {
+                                      if (myController
+                                          .videoPlayerControllers[
+                                              videoControllerIndex]
+                                          .value
+                                          .isInitialized) {
+                                        return ClipRect(
+                                          child: FittedBox(
+                                            fit: BoxFit.contain,
+                                            child: SizedBox(
+                                              width: myController
+                                                  .videoPlayerControllers[
+                                                      videoControllerIndex]
+                                                  .value
+                                                  .size
+                                                  .width,
+                                              height: myController
+                                                  .videoPlayerControllers[
+                                                      videoControllerIndex]
+                                                  .value
+                                                  .size
+                                                  .height,
+                                              child: Chewie(
+                                                controller: myController
+                                                        .chewieControllers[
+                                                    videoControllerIndex],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        return const Center(
+                                          child: Text(
+                                            'Video failed to initialize',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: Text(
+                                      'Invalid video index',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  );
+                                }
+                              } else {
+                                // If it's an image, return the image widget
+                                return buildImage(
+                                    myController.machinesMediaQuery?[index]
+                                            .photoName ??
+                                        myController
+                                            .sparePartsMediaQuery![index]
+                                            .photoName,
+                                    [],
+                                    filePath: myController
+                                            .machinesMediaQuery?[index]
+                                            .photoPath ??
+                                        myController
+                                            .sparePartsMediaQuery![index]
+                                            .photoPath,
+                                    fit: BoxFit.contain);
+                              }
+                            },
+                            onPageChanged: (index) {
+                              // Handle page change if needed
+                            },
+                          )),
+                          if (_length > 1) ...[
+                            const SizedBox(
+                                height: 16), // Spacing for the indicator
+                            SmoothPageIndicator(
+                              controller: _pageController,
+                              count: myController.machinesMediaQuery?.length ??
+                                  myController.sparePartsMediaQuery!.length,
+                              onDotClicked: (index) =>
+                                  _pageController.animateToPage(index,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      curve: Curves.easeInOutCubic),
+                              effect: const ExpandingDotsEffect(
+                                activeDotColor: Colors.white,
+                                dotColor: Colors.grey,
+                                dotHeight: 8,
+                                dotWidth: 8,
+                                spacing: 8,
+                                expansionFactor: 4,
+                              ),
+                            )
+                          ],
+                          const SizedBox(
+                              height: 16), // Padding below the indicator
+                        ],
+                      ),
+                    );
+                  }
+                }),
                 const SizedBox(height: 40),
 
                 // Glassy styled table for attributes
@@ -121,7 +255,8 @@ class ProductDetailsPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 40),
-                if (myController.productType == ProductType.machine && myController.machineSpareParts.isNotEmpty) ...[
+                if (myController.productType == ProductType.machine &&
+                    myController.machineSpareParts.isNotEmpty) ...[
                   Obx(
                     () {
                       if (myController.isLoadingAttributes.value) {

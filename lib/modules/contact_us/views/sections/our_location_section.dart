@@ -9,6 +9,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart'; // For Android/iO
 import 'package:google_maps/google_maps.dart' as gmaps;
 import 'package:web/src/dom/html.dart';
 
+import '../../controllers/contact_us_controller.dart';
+
 class OurLocationSection extends StatelessWidget {
   final bool isMobile;
   const OurLocationSection({required this.isMobile, super.key});
@@ -21,8 +23,7 @@ class OurLocationSection extends StatelessWidget {
 
     // Function to open Google Maps when the marker is clicked
     Future<void> openGoogleMaps() async {
-      const String googleMapsUrl =
-          "https://maps.app.goo.gl/AyLSZcTcv8stnnpX7";
+      const String googleMapsUrl = "https://maps.app.goo.gl/AyLSZcTcv8stnnpX7";
       if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
         await launchUrl(Uri.parse(googleMapsUrl));
       } else {
@@ -30,24 +31,54 @@ class OurLocationSection extends StatelessWidget {
       }
     }
 
-    var googleMap = Column(
-      children: [
-        AnimatedContainer(
-          duration: const Duration(seconds: 1),
-          height: 300,
-          width: MediaQuery.of(context).size.width < 750? (MediaQuery.of(context).size.width < 600 ? double.infinity : 400) : (MediaQuery.of(context).size.width > 1400 ? 800 : 500),
-          child: kIsWeb
-              ? _buildWebMap()
-              : _buildMobileMap(openGoogleMaps, location, mainController),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          'This is a static map showing a specific location.\nTap the map to open Google Maps.'.tr,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 18),
-        )
-      ],
-    );
+    var googleMap = Obx(() {
+      return Column(
+        children: [
+          Get.find<ContactUsController>().isPermissionAvailable.value
+              ? Column(
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(seconds: 1),
+                      height: 300,
+                      width: MediaQuery.of(context).size.width < 750
+                          ? (MediaQuery.of(context).size.width < 600
+                              ? double.infinity
+                              : 400)
+                          : (MediaQuery.of(context).size.width > 1400
+                              ? 800
+                              : 500),
+                      child: kIsWeb
+                          ? _buildWebMap()
+                          : _buildMobileMap(
+                              openGoogleMaps, location, mainController),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'This is a static map showing a specific location.\nTap the map to open Google Maps.'
+                          .tr,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    Text(
+                      'Please allow location access to view the map.'.tr,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 18, color: Colors.red),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: Get.find<ContactUsController>()
+                          .requestLocationPermission,
+                      child: Text('Allow Location Access'.tr),
+                    ),
+                  ],
+                ),
+        ],
+      );
+    });
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -71,11 +102,12 @@ class OurLocationSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "Al Masria is located in Egypt, specializing in importing recycling plastic machines since 2008.".tr,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontWeight: FontWeight.w200, color: AppColors.notBlackAndWhiteColor(context).withAlpha(200)),
+                  "Al Masria is located in Egypt, specializing in importing recycling plastic machines since 2008."
+                      .tr,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w200,
+                      color: AppColors.notBlackAndWhiteColor(context)
+                          .withAlpha(200)),
                 ),
                 const SizedBox(height: 25),
                 Text(
@@ -99,7 +131,7 @@ class OurLocationSection extends StatelessWidget {
           ),
           if (!isMobile) ...[
             const SizedBox(width: 30),
-            googleMap,// Dummy space to make scrollable
+            googleMap, // Dummy space to make scrollable
           ]
         ],
       ),
@@ -107,7 +139,7 @@ class OurLocationSection extends StatelessWidget {
   }
 
   // For Web: Use the google_maps package
-    Widget _buildWebMap() {
+  Widget _buildWebMap() {
     // Create map options for the Google Map
     final mapOptions = gmaps.MapOptions()
       ..zoom = 14
@@ -157,7 +189,6 @@ class OurLocationSection extends StatelessWidget {
     // Return the HtmlElementView widget to display the map in the Flutter app
     return const HtmlElementView(viewType: 'map-element');
   }
-
 
   void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {

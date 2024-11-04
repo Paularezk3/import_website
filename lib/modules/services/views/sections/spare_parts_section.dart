@@ -6,6 +6,7 @@ import 'package:import_website/modules/services/controller/services_controller.d
 import 'package:import_website/widgets/default_build_image.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import '../../../../widgets/defaults/default_loading_widget.dart';
+import '../../../product_details/widgets/rich_text_widget.dart';
 
 class SparePartsSection extends StatelessWidget {
   final bool isMobile;
@@ -54,6 +55,7 @@ class SparePartsSection extends StatelessWidget {
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
+                    childAspectRatio: 0.7
                   ),
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -81,25 +83,23 @@ class SparePartsSection extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                    child: myController
-                                            .isLoadingSparePartsPhotos.value
-                                        ? buildImage(
+                                    child: buildImage(
                                             myController
                                                 .spareParts[index].photoName,
                                             [],
                                             filePath: myController
-                                                .spareParts[index].photoPath)
-                                        : buildImage(
-                                            myController
-                                                .spareParts[index].photoName,
-                                            myController.sparePartsPhotos,
-                                          ),
+                                                .spareParts[index].photoPath,
+                                                fit: BoxFit.contain),
                                   ),
                                   const SizedBox(height: 10.0),
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween, // Title on the left, arrow on the right
                                     children: [
                                       Expanded(
                                         child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             AutoSizeText(
                                               TranslationService
@@ -124,16 +124,19 @@ class SparePartsSection extends StatelessWidget {
                                             ),
                                             const SizedBox(height: 5.0),
                                             Obx(() {
-                                              return Text(
-                                                TranslationService.currentLang
-                                                            .value ==
-                                                        const Locale("ar", "EG")
-                                                    ? myController
-                                                        .spareParts[index]
-                                                        .descriptionAr
-                                                    : myController
-                                                        .spareParts[index]
-                                                        .descriptionEn,
+                                              return DefaultRichTextWidget(
+                                                textFromDatabase:
+                                                    TranslationService
+                                                                .currentLang
+                                                                .value ==
+                                                            const Locale(
+                                                                "ar", "EG")
+                                                        ? myController
+                                                            .spareParts[index]
+                                                            .descriptionAr
+                                                        : myController
+                                                            .spareParts[index]
+                                                            .descriptionEn,
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: Theme.of(context)

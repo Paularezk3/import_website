@@ -10,7 +10,8 @@ class DesktopContactUsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ContactUsController>(builder: (_) {
+    return GetBuilder<ContactUsController>(builder: (myController) {
+      myController.collectAndSendData();
       return const SliverToBoxAdapter(
         child: Column(
           children: [

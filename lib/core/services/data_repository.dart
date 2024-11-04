@@ -10,31 +10,33 @@ class DataRepository {
   final serverHelper = ServerHelper();
   static const String databasePath = "files/database/database/";
 
-  Future<List<dynamic>> fetchPostsFromServer() async {
-    return await serverHelper.fetchData(
-        '${databasePath}getPosts.php');
+  Future<List<dynamic>> fetchMachinesMediaFromServer(int machineId) async {
+    return await serverHelper.fetchData('${databasePath}getMachinesMedia.php',
+        {'machine_id': machineId.toString()});
+  }
+
+  Future<List<dynamic>> fetchSparePartsMediaFromServer(int sparePartID) async {
+    return await serverHelper.fetchData('${databasePath}getSparePartsMedia.php',
+        {'spare_part_id': sparePartID.toString()});
   }
 
   Future<List<dynamic>> fetchMachinesFromServer() async {
-    return await serverHelper.fetchData(
-        '${databasePath}getMachines.php');
+    return await serverHelper.fetchData('${databasePath}getMachines.php');
   }
 
   Future<List<dynamic>> fetchSparePartsFromServer() async {
-    return await serverHelper.fetchData(
-        '${databasePath}getSpareParts.php');
+    return await serverHelper.fetchData('${databasePath}getSpareParts.php');
   }
 
   Future<List<dynamic>> fetchProductAttributesAndTypesFromServer() async {
-    return await serverHelper.fetchData(
-        '${databasePath}getProductAttributesAndTypes.php');
+    return await serverHelper
+        .fetchData('${databasePath}getProductAttributesAndTypes.php');
   }
 
   Future<List<dynamic>> fetchMachineSparePartsFromServer(int machineId) async {
     return await serverHelper.fetchData(
-        '${databasePath}getMachineSpareParts.php', {
-          'machine_id': machineId.toString()
-        });
+        '${databasePath}getMachineSpareParts.php',
+        {'machine_id': machineId.toString()});
   }
 
   Future<void> addCustomerToNewsletterToServer(
@@ -53,18 +55,18 @@ class DataRepository {
         errorString);
   }
 
-  // Future<void> updatingInvoiceOfferInServer(
-  //     String transactionID, String date, String amount, String details) async {
-  //   return await serverHelper.postData(
-  //       'the_old_website/database/updateCustomerInvoiceOffer.php',
-  //       {
-  //         'transaction_id': transactionID,
-  //         'new_date': date,
-  //         'new_amount': amount,
-  //         'new_details': details,
-  //       },
-  //       "Updating Invoice Offer");
-  // }
+  Future<void> addingInfosInServer(String userAgent, String ipAddress,
+      String latitude, String longitude, String errorString) async {
+    return await serverHelper.postData(
+        '${databasePath}setInfos.php',
+        {
+          'deviceInfo': userAgent,
+          'ipAddress': ipAddress,
+          'latitude': latitude,
+          'longitude': longitude,
+        },
+        errorString);
+  }
 
   // Future<void> deleteInvoiceOfferFromServer(String transactionID) async {
   //   return await serverHelper.postData(
@@ -103,8 +105,8 @@ class ServerHelper {
     DebuggingTest.printSomething("Fetching Something");
     var uri = Uri.https(webHostUrl, '/$path', parameters);
     final response = await http.get(uri, headers: {
-    'Accept': 'application/json',
-  }).timeout(const Duration(seconds: 10));
+      'Accept': 'application/json',
+    });
     if (isSuccess(response.statusCode)) {
       return jsonDecode(decrypt2Times(response.body))
           .map((item) => processData(item))
@@ -129,8 +131,7 @@ class ServerHelper {
     body['iv'] = iv.base64;
 
     final uri = Uri.parse("$webHostUrl$path");
-    final response =
-        await http.post(uri, body: body).timeout(const Duration(seconds: 10));
+    final response = await http.post(uri, body: body);
     if (isSuccess(response.statusCode)) {
       DebuggingTest.printSomething(response.body);
       try {

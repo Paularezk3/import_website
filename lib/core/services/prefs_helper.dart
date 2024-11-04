@@ -1,7 +1,8 @@
-import 'package:import_website/core/database_classes/posts.dart';
 import 'package:import_website/core/database_classes/product_attributes_and_types.dart';
 import 'package:import_website/core/services/shared_preference_handler.dart';
+import '../database_classes/machines_media.dart';
 import '../database_classes/product_details.dart';
+import '../database_classes/spare_parts_media.dart';
 import 'debugging_test.dart';
 import 'exceptions_handling.dart';
 import 'show_snack_bar.dart';
@@ -26,17 +27,32 @@ class PrefsHelper {
     }
   }
 
-  String postsKey = "posts";
-  Future<void> savePostsToPrefs(List<Posts> posts) async {
+  String postsKey = "machines_media";
+  Future<void> saveMachinesMediaToPrefs(
+      List<MachinesMedia> posts, int machineId) async {
     sharedPreferencesController.saveText(postsKey, json.encode(posts));
   }
 
-  Future<List<Posts>> loadPostsFromPrefs() async {
+  Future<List<MachinesMedia>> loadMachinesMediaFromPrefs() async {
     var json = await sharedPreferencesController.getText(postsKey);
     if (json != null) {
-      return parsePostsListItems(jsonDecode(json));
+      return parseMachinesMediaListItems(jsonDecode(json));
     }
-    return <Posts>[];
+    return <MachinesMedia>[];
+  }
+
+  String sparePartsMediaKey = "spare_parts_media";
+  Future<void> saveSparePartsMediaToPrefs(
+      List<SparePartsMedia> posts, int sparePartsID) async {
+    sharedPreferencesController.saveText(sparePartsMediaKey, json.encode(posts));
+  }
+
+  Future<List<SparePartsMedia>> loadSparePartsMediaFromPrefs() async {
+    var json = await sharedPreferencesController.getText(sparePartsMediaKey);
+    if (json != null) {
+      return parseSparePartsMediaListItems(jsonDecode(json));
+    }
+    return <SparePartsMedia>[];
   }
 
   String machinesKey = "machines";
@@ -83,18 +99,15 @@ class PrefsHelper {
     return <ProductAttributesAndTypes>[];
   }
 
+  String machineSparePartsKey = "machine_spare_parts";
   Future<void> saveMachineSparePartsToPrefs(
       List<SpareParts> machineSpareParts, int machineId) async {
-       String machineSparePartsKey = "machine_spare_parts_$machineId";
     sharedPreferencesController.saveText(
-        machineSparePartsKey, json.encode(machineSpareParts));
+        "${machineSparePartsKey}_$machineId", json.encode(machineSpareParts));
   }
 
-  Future<List<SpareParts>>
-      loadMachineSparePartsFromPrefs(int machineId) async {
-       String machineSparePartsKey = "machine_spare_parts_$machineId";
-    var json =
-        await sharedPreferencesController.getText(machineSparePartsKey);
+  Future<List<SpareParts>> loadMachineSparePartsFromPrefs(int machineId) async {
+    var json = await sharedPreferencesController.getText("${machineSparePartsKey}_$machineId");
     if (json != null) {
       return parseSparePartsListItems(jsonDecode(json));
     }

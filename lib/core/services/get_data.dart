@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
-import 'package:import_website/core/database_classes/posts.dart';
+import 'package:import_website/core/database_classes/machines_media.dart';
 import 'package:import_website/core/database_classes/product_attributes_and_types.dart';
+import 'package:import_website/core/database_classes/spare_parts_media.dart';
 
 import '../database_classes/product_details.dart';
 import 'data_repository.dart';
@@ -96,23 +97,42 @@ class GetData extends GetxController {
     }
   }
 
-  RxList<Posts> posts = RxList<Posts>();
+  RxList<MachinesMedia> machinesMedia = RxList<MachinesMedia>();
 
-  Future<List<Posts>> getPosts() async {
-    posts.value =
-        await _prefs.makeThisOnPrefs<Posts>(_prefs.loadPostsFromPrefs, []);
+  Future<List<MachinesMedia>> getMachinesMedia(int machineId) async {
+    machinesMedia.value =
+        await _prefs.makeThisOnPrefs<MachinesMedia>(_prefs.loadMachinesMediaFromPrefs, []);
 
-    posts.value = await getAndSave<Posts>(
-        _repository.fetchPostsFromServer,
+    machinesMedia.value = await getAndSave<MachinesMedia>(
+        _repository.fetchMachinesMediaFromServer,
+        [machineId],
+        parseMachinesMediaListItems,
         [],
-        parsePostsListItems,
-        [],
-        _prefs.savePostsToPrefs,
-        [],
-        posts.toList(),
-        "Getting Posts");
+        _prefs.saveMachinesMediaToPrefs,
+        [machineId],
+        machinesMedia.toList(),
+        "Getting Machines Media");
 
-    return posts.toList();
+    return machinesMedia.toList();
+  }
+
+  RxList<SparePartsMedia> sparePartsMedia = RxList<SparePartsMedia>();
+
+  Future<List<SparePartsMedia>> getSparePartMedia(int sparePartID) async {
+    sparePartsMedia.value =
+        await _prefs.makeThisOnPrefs<SparePartsMedia>(_prefs.loadSparePartsMediaFromPrefs, []);
+
+    sparePartsMedia.value = await getAndSave<SparePartsMedia>(
+        _repository.fetchSparePartsMediaFromServer,
+        [sparePartID],
+        parseSparePartsMediaListItems,
+        [],
+        _prefs.saveSparePartsMediaToPrefs,
+        [sparePartID],
+        sparePartsMedia.toList(),
+        "Getting Spare Parts Media");
+
+    return sparePartsMedia.toList();
   }
 
   RxList<Machines> machines = RxList<Machines>();
@@ -225,24 +245,16 @@ class GetData extends GetxController {
   // //   getCustomers();
   // // }
 
-  // Future<void> addMoneyTransaction(
-  //     int? currentCustomerOrderID,
-  //     String customerId,
-  //     String date,
-  //     String details,
-  //     String amount,
-  //     String isIncome,
-  //     String customerOrderID) async {
-  //   await post(
-  //       _repository.addMoneyTransactionToServer,
-  //       [customerId, date, details, amount, isIncome, customerOrderID],
-  //       "Adding Money Transaction");
-  //   if (currentCustomerOrderID != null) {
-  //     await getCustomerPartAndMoneyTransaction(currentCustomerOrderID);
-  //   }
-  //   await getCustomerOrders(int.parse(customerId));
-  //   getCustomers();
-  // }
+  Future<void> addInfos(
+      String userAgent,
+      String ipAddress,
+      String latitude,
+      String longitude,) async {
+    await post(
+        _repository.addingInfosInServer,
+        [userAgent, ipAddress, latitude, longitude],
+        "Adding Infos");
+  }
 
   // Future<void> addPartTransaction(
   //     int currentCustomerOrderID,

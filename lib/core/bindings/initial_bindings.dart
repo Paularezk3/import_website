@@ -6,6 +6,7 @@ import 'package:import_website/modules/contact_us/controllers/contact_us_control
 import 'package:import_website/modules/home/controller/home_controller.dart';
 import 'package:import_website/modules/main/controllers/main_home_controller.dart';
 import 'package:import_website/modules/services/controller/services_controller.dart';
+import '../services/getting_infos.dart';
 import '../services/shared_preference_handler.dart';
 
 class InitialBindings extends Bindings {
@@ -14,7 +15,7 @@ class InitialBindings extends Bindings {
     DataRepository dataRepository = DataRepository();
     PrefsHelper prefs = PrefsHelper();
     Get.put(GetData(dataRepository, prefs));
-
+    Get.put<GettingInfos>(GettingInfos());
     Get.put<MainHomeController>(MainHomeController());
     Get.put<HomeController>(HomeController());
     Get.put<ContactUsController>(ContactUsController());

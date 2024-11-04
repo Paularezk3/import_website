@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:import_website/core/utils/app_colors.dart';
 import 'package:import_website/core/utils/translation/translation_service.dart';
+import 'package:import_website/modules/product_details/widgets/rich_text_widget.dart';
 import 'package:import_website/modules/services/controller/services_controller.dart';
 import 'package:import_website/widgets/default_build_image.dart';
 
@@ -56,6 +57,8 @@ class MachinesSection extends StatelessWidget {
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
+                    childAspectRatio: 0.7
+                    // mainAxisExtent: 500
                   ),
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -94,11 +97,13 @@ class MachinesSection extends StatelessWidget {
                                             [],
                                             filePath: myController
                                                 .machines[index].photoPath,
+                                                fit: BoxFit.contain
                                           )
                                         : buildImage(
                                             myController
                                                 .machines[index].photoName,
                                             myController.machinesPhotos,
+                                                fit: BoxFit.contain
                                           ),
                                   ),
                                   const SizedBox(height: 10.0),
@@ -137,7 +142,8 @@ class MachinesSection extends StatelessWidget {
                                             }),
                                             const SizedBox(height: 5.0),
                                             Obx(() {
-                                              return Text(
+                                              return DefaultRichTextWidget(
+                                                textFromDatabase: 
                                                 TranslationService.currentLang
                                                             .value ==
                                                         const Locale("ar", "EG")

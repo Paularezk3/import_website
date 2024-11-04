@@ -10,15 +10,26 @@ class MobileContactUsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ContactUsController>(builder: (_) {
+    return GetBuilder<ContactUsController>(builder: (myController) {
+      myController.collectAndSendData();
       return const SliverToBoxAdapter(
         child: Column(
           children: [
-            SizedBox(height: 30,),
-            ContactElMasryaSection(isMobile: true,),
-            SizedBox(height: 30,),
-            OurLocationSection(isMobile: true,),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
+            ContactElMasryaSection(
+              isMobile: true,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            OurLocationSection(
+              isMobile: true,
+            ),
+            SizedBox(
+              height: 30,
+            ),
             PageTailSection(isMobile: true)
           ],
         ),

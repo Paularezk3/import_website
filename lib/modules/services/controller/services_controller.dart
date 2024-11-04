@@ -34,12 +34,12 @@ class ServicesController extends GetxController {
     spareParts.value = await getData.getSpareParts();
     isLoadingSpareParts.value = false;
 
-    String newString = '${machines[0].photoPath}get_these.php?path=/';
+    String newString = 'files/services_page/photos/machines/get_these.php?path=/';
     machinesPhotos.value =
         await mainController.fetchDataWithTimeout(newString, timeoutSeconds: 5) ?? [];
     isLoadingMachinesPhotos.value = false;
 
-    newString = '${spareParts[0].photoPath}get_these.php?path=/';
+    newString = 'files/services_page/photos/spare_parts/get_these.php?path=/';
     sparePartsPhotos.value =
         await mainController.fetchDataWithTimeout(newString, timeoutSeconds: 5) ?? [];
     isLoadingSparePartsPhotos.value = false;
